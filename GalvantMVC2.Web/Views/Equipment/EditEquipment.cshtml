@@ -8,17 +8,25 @@
 
 <h2>Edit Equipment</h2>
 
-<div class="w-50">
-    <form action="~/equipment-edit" method="post">
+<form action="~/equipment-edit" method="post">
+<div class="w-50 float-left">
+    
 
-        <input type="hidden" asp-for="AddEquipmentVm.EquipmentId" />
-
+        <input type="hidden" asp-for="AddEquipmentVm.EquipmentId" />       
+       
         <div class="form-field flex">
             <div class="w-25">
-                <label asp-for="AddEquipmentVm.Location1" class="form-label pt">Oddział</label>
+                <label class="form-label">Oddział</label>
             </div>
             <div class="flex-1">
-                <input asp-for="AddEquipmentVm.Location1" class="form-input" />
+                @{
+                    string[] location1s = { "Czarna Białostocka", "Wyszków" };
+                }
+                @foreach (string location1 in location1s)
+                {
+                    <input type="radio" asp-for="AddEquipmentVm.Location1" value="@location1" />
+                    <label for="@location1">@location1</label>
+                }                
             </div>
         </div>
 
@@ -40,18 +48,7 @@
             <div class="flex-1">
                 <input asp-for="AddEquipmentVm.Location3" class="form-input" />
             </div>
-        </div>
-
-        <div class="form-field flex">
-            <div class="w-25">
-                <label class="form-label" asp-for="AddEquipmentVm.TypeId">Rodzaj</label>
-            </div>
-            <div class="flex-1">
-                <select asp-for="AddEquipmentVm.TypeId" class="form-input" asp-items="@ViewBag.Types">
-                    <option value="">Wybierz rodzaj</option>
-                </select>
-            </div>
-        </div>
+        </div>       
 
         <div class="form-field flex">
             <div class="w-25">
@@ -67,10 +64,16 @@
             </div>
             <div class="flex-1">
                 <button class="button button-green-back">Aktualizuj</button>
-
-
             </div>
         </div>
-    </form>
+
+       
+
+   
 </div>
+    <div class="w-50 float-left">        
+        <partial name="_AdditionalFieldsUpdate"></partial>
+    </div>
+ </form>
+
 

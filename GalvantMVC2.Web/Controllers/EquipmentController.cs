@@ -96,6 +96,6 @@ namespace GalvantMVC2.Web.Controllers
             });
 
             return View(editEquipmentVm);
-        }
+        }        
     }
 }

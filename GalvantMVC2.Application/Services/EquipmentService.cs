@@ -170,7 +170,7 @@ namespace GalvantMVC2.Application.Services
                 return "_HoistAdditionalFields";
 
             return null;
-        }
+        }        
 
         public AddEquipmentVm GetEquipmentSharedFieldsForEdit(int id)
         {
