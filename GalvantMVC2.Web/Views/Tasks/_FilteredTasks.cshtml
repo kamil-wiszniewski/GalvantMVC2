@@ -1,0 +1,24 @@
+﻿@using GalvantMVC2.Application.ViewModels.Tasks
+
+@model IEnumerable<TasksListVm>
+
+@foreach (TasksListVm task in Model)
+        {
+            <tr>
+                <td style="width:3%">@task.TaskId</td>
+                <td style="width:10%">@task.TagName</td>
+                <td style="width:15%">@task.Equipment</td>
+                <td style="width:25%">@task.Description</td>
+                <td style="width:15%">@task.CreationDate?.ToString("dd/MM/yyyy")</td>
+                <td style="width:15%">@task.DueDate?.ToString("dd/MM/yyyy")</td>
+                <td style="width:15%">
+                    <a href="~/root"><i class="options-link fa-solid fa-magnifying-glass options-span" title="Przeglądaj"></i></a>
+
+                    <a href="~/root"> <i class="options-link fa-solid fa-pen" title="Edytuj"></i></a> 
+@*      <a asp-controller="Persons" asp-action="Delete" asp-route-equipmentId="@equipment.EquipmentId"></a> *@
+
+        <a href="~/root"> <i class="options-link fa-solid fa-trash" title="Usuń"></i></a>
+                </td>
+            </tr>
+        }
+        <tr></tr>

@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "Add Equipment";
+}
+
+    <h1>Dodaj urządzenie</h1>
+
+<form action="~/add-equipment" method="post" enctype='multipart/form-data'>
+<div class="w-50 float-left">   
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label">Oddział</label>
+            </div>
+            <div class="flex-1">
+                <input type="radio" class="ml" id="Czarna Białostocka" name="Location1" value="Czarna Białostocka" checked="checked" />
+                <label for="Czarna Białostocka">Czarna Białostocka</label>
+                <input type="radio" class="ml" id="Wyszków" name="Location1" value="Wyszków" />
+                <label for="Wyszków">Wyszków</label>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="TypeId">Rodzaj</label>
+            </div>
+            <div class="flex-1">
+                <select name="TypeId" id="TypeId" class="form-input">
+                    <option value="">Wybierz rodzaj</option>
+                    @foreach (var type in ViewBag.Types)
+                    {
+                        <option value="@type.TypeId">@type.TypeName</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Location2Id">Lokalizacja</label>
+            </div>
+            <div class="flex-1">
+                <select name="Location2Id" id="Location2Id" class="form-input">
+                    <option value="">Wybierz lokalizację</option>
+                    @foreach (var location in ViewBag.Locations)
+                    {
+                        <option value="@location.Location2Id">@location.Location2Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Location3">Miejsce</label>
+            </div>
+            <div class="flex-1">
+                <input class="form-input" type="text" id="Location3" name="Location3" />
+            </div>
+        </div>        
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Notes">Uwagi</label>
+            </div>
+            <div class="flex-1">
+                <textarea class="form-input" id="Notes" name="Notes"></textarea>
+            </div>
+        </div>
+        
+        <div class="box">
+            <h3>Pliki</h3>
+            
+            
+            <div class="flex-1">
+                <h4>Dokumentacja techniczno ruchowa</h4>
+                <input type="file" multiple="multiple" name="name" />
+                <input type="submit" />
+            </div>
+
+            <div class="flex-1">
+                <h4>Schemat elektryczny</h4>
+                <input type="file" multiple="multiple" name="name" />
+                <input type="submit" />
+            </div>
+
+            <div class="flex-1">
+                <h4>Inne</h4>
+               
+                <input type="file" multiple="multiple" name="name" />               
+                <input type="submit" />
+                
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">                
+            </div>
+            <div class="flex-1">
+                <button class="button button-green-back">Dodaj</button>
+            </div>
+        </div>
+   
+</div>
+
+<div class="w-50 float-left" id="additionalFieldsContainer">
+        
+</div>
+</form>
+
+
+
+@section scripts {
+    <script>
+        // Dodaj event listener do zmiany wartości w select
+        document.getElementById("TypeId").addEventListener("change", function () {
+            var selectedTypeId = this.value;
+
+            // Wykonaj żądanie AJAX, aby pobrać część widoku
+            if (selectedTypeId) {
+                fetch("/add-equipment/AdditionalFields?selectedTypeId=" + selectedTypeId)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Wstrzyknij pobraną część widoku do kontenera
+                        document.getElementById("additionalFieldsContainer").innerHTML = data;
+                    });
+            } else {
+                // Wyczyść kontener, jeśli nie wybrano rodzaju
+                document.getElementById("additionalFieldsContainer").innerHTML = "";
+            }
+        });
+    </script>
+}

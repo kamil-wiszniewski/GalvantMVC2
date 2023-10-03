@@ -1,0 +1,112 @@
+﻿@using GalvantMVC2.Application.ViewModels.Equipment
+
+@model IEnumerable<EquipmentListVm>
+
+@{
+ ViewBag.Title = "Urządzenia";
+}
+
+@section Sidebar {
+    <div class="centred">
+        <button class="button button-green-back" id="AddEquipmentButton">Dodaj urządzenie</button>
+
+    </div>
+    }
+
+<form asp-controller="Equipment" asp-action="Index" method="get">  
+    
+ <h1>Urządzenia</h1>    
+
+ <div class="box flex2">
+        <div class="flex-1a">
+   <label for="selectedLocation1">Oddział:</label>
+            <select class="form-input" name="selectedLocation1">
+                <option value="">Wszystkie</option>
+       @foreach (var location1 in ViewBag.Location1s)
+    {
+     <option value="@location1">@location1</option>
+    }    
+   </select>
+   </div>
+        <div class="flex-1a">
+            <label for="selectedType">Typ urządzenia:</label>
+
+            <select class="form-input" name="selectedType">
+                <option value="">Wszystkie</option>
+                @foreach (var type in ViewBag.Types)
+                {
+                    <option value="@type.TypeId">@type.TypeName</option>
+                }
+
+
+            </select>
+   </div>
+        <div class="flex-1a">
+            <label for="selectedLocation2">Lokalizacja:</label>
+            <select class="form-input" name="selectedLocation2">
+                <option value="">Wszystkie</option>
+                @foreach (var location2 in ViewBag.Location2s)
+                {
+                    <option value="@location2.Location2Id">@location2.Location2Name</option>
+                }
+   
+   </select>
+   </div>
+  
+
+
+  @* <div class="flex-1">
+   <input type="search" id="Search" class="form-input" placeholder="Search" name="searchString"/>
+  </div> *@
+
+        <div class="flex-1a bottom">
+
+            <button class="button button-blue-back">Szukaj</button>
+   @* <a href="~/persons/index" class="link-hover">Clear all</a> *@
+  </div>
+ </div>
+
+
+ <table class="table w-100 mt">
+        <thead>
+            <tr>
+                <th>Typ</th>
+                <th>Oddział</th>
+                <th>Lokacja</th>
+                <th>Miejsce</th>
+                <th>Nr inwentarzowy</th>                
+                <th>Opcje</th>
+            </tr>
+        </thead>
+  <tbody>
+            @foreach (EquipmentListVm equipment in Model)
+   {
+    <tr>
+     <td style="width:15%">@equipment.Type</td>
+     <td style="width:15%">@equipment.Location1</td>
+     <td style="width:15%">@equipment.Location2</td>
+     <td style="width:15%">@equipment.Location3</td>     
+     <td style="width:15%">@equipment.InventoryNumber</td>    
+     <td style="width:15%">
+                        <a href="~/root"><i class="options-link fa-solid fa-magnifying-glass options-span" title="Przeglądaj"></i></a>
+
+                        <a href="~/root"> <i class="options-link fa-solid fa-pen" title="Edytuj"></i></a>
+                        @*      <a asp-controller="Persons" asp-action="Delete" asp-route-equipmentId="@equipment.EquipmentId"></a>
+ *@
+                        <a href="~/root"> <i class="options-link fa-solid fa-trash" title="Usuń"></i></a>
+     </td>
+    </tr>
+   }
+   <tr></tr>
+  </tbody>
+
+ </table>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById("AddEquipmentButton").addEventListener("click", function () {            
+            window.location.href = "/add-equipment";
+        });
+    </script>
+}

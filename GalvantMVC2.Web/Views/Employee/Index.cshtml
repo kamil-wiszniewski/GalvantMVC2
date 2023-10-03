@@ -1,0 +1,108 @@
+﻿@using GalvantMVC2.Application.ViewModels.Employee;
+
+@model SearchLastNameVm
+
+@{
+    ViewBag.Title = "Pracownicy";
+}
+
+@section Sidebar {
+    <div class="centred">
+        <button class="button button-green-back" id="AddEmployeeButton">Dodaj pracownika</button>
+
+    </div>
+    }
+
+
+    <h1>Pracownicy</h1>
+
+<form>      
+    <div class="form-field flex">
+        <label for="searchText">Wyszukaj nazwisko:</label>
+        <input type="text" class="form-control" id="searchText" name="SearchLastNameVm.SearchText"
+               list="suggestionsList" oninput="getSuggestions()" value="@Model.SearchText" />
+
+        <!-- Lista rozwijana (datalist) z podpowiedziami -->
+        <datalist id="suggestionsList">
+            <!-- Opcje zostaną dodane dynamicznie w kodzie JavaScript -->
+        </datalist>
+    </div>        
+       
+        <div class="flex-1">
+            <button class="button button-green-back">Zobacz</button>
+        </div>    
+</form>
+
+@section scripts {
+    <script>
+        // Funkcja pobierająca podpowiedzi
+        function getSuggestions() {
+            // Pobierz wprowadzony tekst z pola tekstowego
+            var searchText = document.getElementById("searchText").value;
+
+            // Wykonaj zapytanie asynchroniczne do serwera, aby uzyskać podpowiedzi
+            // (tu możesz użyć AJAX lub Fetch API)
+            // Przykładowa funkcja AJAX
+            $.ajax({
+                url: "/get-suggestions",
+                type: "POST",
+                data: { searchText: searchText },
+                success: function (result) {
+                    // Po uzyskaniu podpowiedzi, wywołaj funkcję aktualizującą listę rozwijaną (datalist)
+                    updateSuggestionsList(result);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        // Funkcja aktualizująca listę rozwijaną (datalist)
+        function updateSuggestionsList(suggestions) {
+            const dataList = document.getElementById("suggestionsList");
+
+            // Usuń istniejące opcje z listy rozwijanej (datalist)
+            while (dataList.firstChild) {
+                dataList.removeChild(dataList.firstChild);
+            }
+
+            // Dodaj nowe opcje z podpowiedziami do listy rozwijanej (datalist)
+            for (const suggestion of suggestions) {
+                const option = document.createElement("option");
+                option.value = suggestion;
+                dataList.appendChild(option);
+            }
+        }
+
+        document.getElementById("AddEmployeeButton").addEventListener("click", function () {
+            window.location.href = "/add-employee";
+        });
+    </script>
+}
+
+@*<script>
+    function getSuggestions() {
+        var searchText = document.getElementById("searchText").value;
+        if (searchText.length >= 3) {
+            $.ajax({
+                type: "POST",
+                url: "/Employee/GetSuggestions",
+                data: { searchText: searchText },
+                success: function (data) {
+                    var suggestions = data;
+                    var suggestionsDiv = document.getElementById("suggestions");
+                    suggestionsDiv.innerHTML = "";
+
+                    for (var i = 0; i < suggestions.length; i++) {
+                        var suggestion = document.createElement("div");
+                        suggestion.textContent = suggestions[i];
+                        suggestionsDiv.appendChild(suggestion);
+                    }
+                },
+                error: function () {
+                    console.log("Wystąpił błąd podczas pobierania podpowiedzi.");
+                }
+            });
+        }
+    }
+</script>*@

@@ -1,0 +1,99 @@
+﻿@using GalvantMVC2.Application.ViewModels.Tasks
+
+@model IEnumerable<TasksListVm>
+
+@{
+    ViewBag.Title = "Zadania";
+}
+
+@section Sidebar {
+    <div class="centred">
+        <button id="AddTaskButton" class="button button-green-back">Dodaj zadanie</button>
+
+    </div>
+    }
+
+<h1>Zadania</h1>
+<div id="tagButtons" class="tags">
+    <a href="#" data-tag="wszystkie" class="button-tags button-grey-back tags-links">Wszystkie</a>
+    <a href="#" data-tag="awaria" class="button-tags button-grey-back grey tags-links">Awarie</a>
+    <a href="#" data-tag="usterka" class="button-tags button-grey-back grey tags-links">Usterki</a>
+    <a href="#" data-tag="przegląd" class="button-tags button-grey-back grey tags-links">Przeglądy</a>
+    <a href="#" class="button-tags button-grey-back grey tags-links">Termin < 7 dni</a>
+</div>
+
+<div class="tags">
+    <label>Data od</label>
+    <input type="date"/>
+    <label>Data do</label>
+    <input type="date" />
+</div>
+
+<table class="table w-100 mt">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tag</th>
+            <th>Urządzenie</th>
+            <th>Opis</th>
+            <th>Utworzone</th>
+            <th>Termin wykonania</th>
+            <th>Opcje</th>
+        </tr>
+    </thead>
+    <tbody id="filteredTasks">
+        
+    </tbody> 
+</table>
+
+@section Scripts {
+    <script>       
+            document.addEventListener("DOMContentLoaded", function () {
+                
+                var link = document.querySelector('a[data-tag="wszystkie"]');
+               
+                if (link) {
+                    link.classList.add('selected-tag');
+
+                    $.ajax({
+                        url: "/tasks/filtered-tasks",
+                        data: { tag: "wszystkie"},
+                        success: function (result) {
+                            $("#filteredTasks").html(result);
+                        }
+                    });
+                }
+            });
+
+        $(document).ready(function () {
+            $(".tags-links").click(function () {
+                                
+                $(".tags-links").removeClass("selected-tag");               
+                $(".tags-links").addClass("grey");
+                $(this).removeClass("grey");
+                $(this).addClass("selected-tag");
+
+                var tag = $(this).attr("data-tag");                 
+                var dataOd = $("#dataOd").val();
+                var dataDo = $("#dataDo").val();
+
+                $.ajax({
+                    url: "/tasks/filtered-tasks",
+                    data: { tag: tag, dataOd: dataOd, dataDo: dataDo },
+                    success: function (result) {
+                        $("#filteredTasks").html(result);
+                    }
+                });
+            });
+        });
+
+        document.getElementById("AddTaskButton").addEventListener("click", function () {
+            window.location.href = "/add-task";
+        });
+</script>
+}
+
+
+
+
+    

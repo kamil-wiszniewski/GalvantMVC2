@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Add Task";
+}
+
+<h1>Dodaj zadanie</h1>
+
+<form action="~/add-task" method="post">
+    <div class="w-50 float-left">
+        
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="TagId">Tag</label>
+            </div>
+            <div class="flex-1">
+                <select name="TagId" id="TagId" class="form-input">
+                    <option value="">Wybierz tag</option>
+                    @foreach (var tag in ViewBag.Tags)
+                    {
+                        <option value="@tag.TagId">@tag.TagName</option>
+                    }
+                </select>
+            </div>
+        </div>        
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Description">Opis zadania</label>
+            </div>
+            <div class="flex-1">
+                <input class="form-input" type="text" id="Description" name="Description" />
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Equipment">Urządzenie</label>
+            </div>
+            <div class="flex-1">
+                <input class="form-input" type="text" id="Equipment" name="Equipment" />
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="DueDate">Termin wykonania</label>
+            </div>
+            <div class="flex-1">
+                <input class="form-input" type="date" id="DueDate" name="DueDate" />
+            </div>
+        </div>        
+
+        <div class="form-field flex">
+            <div class="w-25">
+            </div>
+            <div class="flex-1">
+                <button class="button button-green-back">Dodaj</button>
+            </div>
+        </div>
+
+    </div>
+
+    
+</form>

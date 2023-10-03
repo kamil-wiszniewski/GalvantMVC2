@@ -1,0 +1,76 @@
+﻿@using GalvantMVC2.Application.ViewModels.Equipment
+
+@model EditEquipmentVm
+
+@{
+    ViewBag.Title = "Edit Equipment";
+}
+
+<h2>Edit Equipment</h2>
+
+<div class="w-50">
+    <form action="~/equipment-edit" method="post">
+
+        <input type="hidden" asp-for="AddEquipmentVm.EquipmentId" />
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label asp-for="AddEquipmentVm.Location1" class="form-label pt">Oddział</label>
+            </div>
+            <div class="flex-1">
+                <input asp-for="AddEquipmentVm.Location1" class="form-input" />
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label" asp-for="AddEquipmentVm.Location2Id">Lokalizacja</label>
+            </div>
+            <div class="flex-1">
+                <select asp-for="AddEquipmentVm.Location2Id" class="form-input" asp-items="@ViewBag.Location2s">
+                    <option value="">Wybierz lokację</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label asp-for="AddEquipmentVm.Location3" class="form-label pt">Miejsce</label>
+            </div>
+            <div class="flex-1">
+                <input asp-for="AddEquipmentVm.Location3" class="form-input" />
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label" asp-for="AddEquipmentVm.TypeId">Rodzaj</label>
+            </div>
+            <div class="flex-1">
+                <select asp-for="AddEquipmentVm.TypeId" class="form-input" asp-items="@ViewBag.Types">
+                    <option value="">Wybierz rodzaj</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label asp-for="AddEquipmentVm.Notes" class="form-label pt">Uwagi</label>
+            </div>
+            <div class="flex-1">
+                <textarea asp-for="AddEquipmentVm.Notes" class="form-input"></textarea>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+            </div>
+            <div class="flex-1">
+                <button class="button button-green-back">Aktualizuj</button>
+
+
+            </div>
+        </div>
+    </form>
+</div>
+
