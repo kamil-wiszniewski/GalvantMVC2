@@ -30,13 +30,57 @@
                 <input class="form-input" type="text" id="Description" name="Description" />
             </div>
         </div>
-
+        
         <div class="form-field flex">
             <div class="w-25">
                 <label class="form-label pt" for="Equipment">Urządzenie</label>
             </div>
             <div class="flex-1">
                 <input class="form-input" type="text" id="Equipment" name="Equipment" />
+            </div>
+        </div>        
+
+        <div class="box">
+            <div class="form-field flex">
+                <div class="w-25">
+                    <label class="form-label pt" for="Equipment">Oddział</label>
+                </div>
+                <div class="flex-1">
+                    <select name="location1" id="firstDropdown">
+                        <option value="Wybierz oddział">Wybierz oddział</option>
+                        <option value="Czarna Białostocka">Czarna Białostocka</option>
+                        <option value="Wyszków">Wyszków</option>
+                   
+                    </select>
+                </div>
+
+                <div class="w-25">
+                    <label class="form-label pt" for="Equipment">Lokalizacja</label>
+                </div>
+                <div class="flex-1">
+                    <select name="cars" id="secondDropdown">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                    </select>
+                </div>
+                <div class="w-25">
+                    <label class="form-label pt" for="Equipment">Rodzaj</label>
+                </div>
+                <div class="flex-1">
+                    <select name="cars" id="thirdDropdown">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                    </select>
+                </div>
+                <div class="w-25">
+                    <label class="form-label pt" for="Equipment">Dostępne urządzenia</label>
+                </div>
+                <div class="flex-1">
+                    <select name="cars" id="cars">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -61,3 +105,34 @@
 
     
 </form>
+
+@section scripts {
+    <script>
+        $('#firstDropdown').change(function () {
+            var firstDropdownVal = $(this).val();
+            console.log(firstDropdownVal);
+
+            // Wywołaj akcję kontrolera, aby pobrać opcje dla drugiej listy
+            $.get('/add-task/GetSecondDropdownOptions', { firstDropdownVal: firstDropdownVal }, function (data) {
+                // Wyczyść drugą listę
+                $('#secondDropdown').empty();
+
+                // Dodaj nowe opcje do drugiej listy
+                $.each(data, function (index, item) {
+                    $('#secondDropdown').append($('<option>', {
+                        value: item.location2Id, 
+                        text: item.location2Name 
+                    }));
+                });
+
+                // Wyczyść trzecią listę po zmianie pierwszej listy
+                $('#thirdDropdown').empty();
+            });
+        });
+
+       
+        
+    </script>
+   
+
+}

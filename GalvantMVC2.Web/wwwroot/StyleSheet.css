@@ -540,3 +540,132 @@ a.tags-links:visited {
         width: auto;
     }
 }
+
+/*Files Upload*/
+.upload-area-title{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.uploadlabel {
+    width: 100%;
+    min-height: 50px;
+    background: #DCDCDC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed #3A81BD;
+    cursor: pointer;
+}
+
+.uploadlabel span {
+        font-size: 30px;
+        color: #3A81BD;
+}
+
+.uploadlabel p {
+        color: #515151;
+        font-size: 15px;
+        font-weight: 600;
+}
+
+.uploaded {
+    margin: 15px 0;
+    font-size: 16px;
+    font-weight: 700;    
+}
+
+.showfilebox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px 15px;
+    box-shadow: #0000000d 0px 0px 0px 1px, #d1d5db3d 0px 0px 0px 1px inset;
+}
+
+.showfilebox .left{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    .showfilebox .filetype {
+        background: #515151;
+        color: #fff;
+        padding: 3px 12px;
+        font-size: 12px;
+        text-transform: capitalize;
+        font-weight: 700;
+        border-radius: 3px;
+    }
+
+    .showfilebox .left h4 {
+        font-weight: 600;
+        font-size: 18px;
+        color: black;
+        margin: 0;
+    }
+
+.right span {
+    color: #3A81BD;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    line-height: 25px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 51%;
+}
+
+.upload-link {
+    text-decoration: none;
+    font-size: 16px;    
+}
+
+a.upload-link:link, a.upload-link:visited{
+    color: #515151;
+}
+
+.centered-button {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    }
+
+.upload-button {
+    padding: 8px 12px;
+    /*border: 2px solid #cacaca;*/
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+    font-size: 80%;
+    color: #ffffff;
+    background-color: #515151;
+}
+
+    .upload-button:hover {
+        cursor: pointer;
+        background-color: #282828;
+    }
+
+.button-grey-back {
+    color: #ffffff;
+    border: 2px solid #f1f1f1;
+}
+
+.grey {
+    background-color: #CACACA;
+}
+
+.tags-links {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+

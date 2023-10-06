@@ -3,6 +3,7 @@ using GalvantMVC2.Application.ViewModels.Equipment;
 using GalvantMVC2.Application.ViewModels.Tasks;
 using GalvantMVC2.Domain.Interfaces;
 using GalvantMVC2.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ namespace GalvantMVC2.Application.Services
     public class TaskService : ITaskService
     {
         private readonly ITaskRepository _taskRepo;
-        public TaskService(ITaskRepository taskRepo)
+        private readonly IEquipmentRepository _equipmentRepo;
+        public TaskService(ITaskRepository taskRepo, IEquipmentRepository equipmentRepository)
         {
             _taskRepo = taskRepo;
+            _equipmentRepo = equipmentRepository;
         }
 
         public int AddTask(AddTaskVm model)
@@ -56,6 +59,26 @@ namespace GalvantMVC2.Application.Services
                     result.Add(taskVm);
                 }
                 return result;            
+        }
+
+        public List<Location2Vm> GetDataForSecondDropdown(string firstDropdownVal)
+        {
+            List<Equipment> equipment = _equipmentRepo.GetAllActiveEquipment()
+                              .Where(e => e.Location1 == firstDropdownVal)
+                              .ToList();
+
+            List<int?> location2Ids = equipment.Select(e => e.Location2Id).Distinct().ToList();
+
+            List<Location2Vm> data = _equipmentRepo.GetAllLocations2()
+                               .Where(l => location2Ids.Contains(l.Location2Id))
+                               .Select(l => new Location2Vm
+                               {
+                                   Location2Id = l.Location2Id,
+                                   Location2Name = l.Location2Name
+                               })
+                               .ToList();
+
+            return data;
         }
 
         public List<TasksListVm> GetFilteredTasksForList(string tag)

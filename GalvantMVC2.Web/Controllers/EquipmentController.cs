@@ -68,6 +68,56 @@ namespace GalvantMVC2.Web.Controllers
             return PartialView(partialViewName);
         }
 
+        [HttpPost]
+        [Route("add-equipment/upload-files")]
+        public async Task<IActionResult> UploadFiles(List<IFormFile> files)
+        {
+            try
+            {
+                // Ścieża do folderu, gdzie pliki zostaną zapisane (zmodyfikuj ją według swoich potrzeb)
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+                // Sprawdź, czy folder istnieje, jeśli nie, utwórz go
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var fileNames = new List<string>();
+
+                // Iteruj przez przesłane pliki
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        // Unikalna nazwa dla każdego pliku, aby uniknąć kolizji
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+                        // Pełna ścieżka do pliku
+                        var filePath = Path.Combine(uploadsFolder, fileName);
+
+                        // Zapisz plik na dysku
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        // Dodaj nazwę pliku do listy
+                        fileNames.Add(fileName);
+                    }
+                }
+
+                // Zwróć odpowiedź JSON z nazwami zapisanych plików
+                return Json(new { success = true, message = "Pliki przesłane pomyślnie.", fileNames });
+            }
+            catch (Exception ex)
+            {
+                // Obsługa błędów
+                return Json(new { success = false, message = "Wystąpił błąd podczas przesyłania plików." });
+            }
+        }
+
+
         [Route("edit-equipment/{equipmentId}")]       
         [HttpGet]
         public IActionResult EditEquipment(int equipmentId)

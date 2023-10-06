@@ -19,14 +19,14 @@ namespace GalvantMVC2.Web.Controllers
 
         [Route("tasks")]
         public IActionResult Index()
-        {            
+        {
             return View();
         }
 
         [Route("tasks/filtered-tasks")]
         public IActionResult FilteredTasks(string tag)
         {
-            var model = _taskService.GetFilteredTasksForList(tag);            
+            var model = _taskService.GetFilteredTasksForList(tag);
             return PartialView("_FilteredTasks", model);
         }
 
@@ -34,9 +34,12 @@ namespace GalvantMVC2.Web.Controllers
         [HttpGet]
         public IActionResult AddTask()
         {
+            //List<TypesVm> types = _typeService.GetAllTypes();
+            //ViewBag.Types = types;
             List<TagsVm> tags = _tagService.GetAllTags();
             ViewBag.Tags = tags;
-            
+
+
             return View();
         }
 
@@ -46,6 +49,14 @@ namespace GalvantMVC2.Web.Controllers
         {
             var id = _taskService.AddTask(model);
             return RedirectToAction("Index");
-        }        
+        }
+
+        [Route("add-task/GetSecondDropdownOptions")]
+        [HttpGet]
+        public IActionResult GetSecondDropdownOptions(string firstDropdownVal)
+        {
+            var lokacje = _taskService.GetDataForSecondDropdown(firstDropdownVal);
+            return Json(lokacje);
+        }
     }
 }
