@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Zgłoszenie";
+}
+
+<h1>Zgłoś </h1>
+<h3>Krok 1/4: Wybierz rodzaj zgłoszenia</h3>
+<form asp-controller="Tasks" asp-action="ZgloszenieStep1" method="post">
+    <div class="w-50-report">
+        <div class="report-location1" id="red-div">            
+            <input type="radio" class="ml" id="Czarna Białostocka" name="Location1" value="Czarna Białostocka"/>
+            <label for="Czarna Białostocka">AWARIA</label>
+        </div>
+        <div class="report-location1" id="yellow-div">
+                <input type="radio" id="Wyszków" name="Location1" value="Wyszków" />
+                <label for="Wyszków">USTERKA</label>
+        </div>        
+     </div>
+</form>
+    <div class="w-50-report-button">
+    <div class="right">
+            <button id="submitBtn1" class="button button-blue-back">Dalej</button>
+    </div>
+    </div>
+     
+
+
+@section scripts {
+    <script>
+        const redDiv = document.getElementById("red-div");
+        const yellowDiv = document.getElementById("yellow-div");
+        const inputElement1 = document.getElementById("Czarna Białostocka");
+        const inputElement2 = document.getElementById("Wyszków");
+
+        redDiv.addEventListener("click", function () {
+            inputElement1.checked = true;
+            redDiv.classList.add("red");
+            yellowDiv.classList.remove("yellow");
+        });
+
+        yellowDiv.addEventListener("click", function () {
+            inputElement2.checked = true;
+            yellowDiv.classList.add("yellow");
+            redDiv.classList.remove("red");
+        });
+
+        document.getElementById("submitBtn1").addEventListener("click", function () {
+            window.location.href = "/zgloszenie2";
+        });
+
+
+    </script>
+
+}
+
+
+

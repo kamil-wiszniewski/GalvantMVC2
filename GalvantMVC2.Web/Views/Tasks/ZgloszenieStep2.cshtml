@@ -1,15 +1,14 @@
 ﻿@{
-    ViewBag.Title = "Add Task";
+    ViewBag.Title = "Zgłoszenie2";
 }
 
-<h1>Dodaj zadanie</h1>
-
-<form action="~/add-task" method="post">
-    <div class="w-50 float-left">                   
-
+<h1>Zgłoś </h1>
+<h3>Krok 2/4: Wybierz urządzenie</h3>
+<form asp-controller="Tasks" asp-action="ZgloszenieStep2" method="post">
+    <div class="w-50-report">
         <div class="box">
             <h4>Wybierz urządzenie</h4>
-                <div class="form-field flex">
+            <div class="form-field flex">
                 <div class="w-25">
                     <label class="form-label pt" for="location1">Oddział</label>
                 </div>
@@ -18,17 +17,17 @@
                         <option value="Wybierz oddział">Wybierz oddział</option>
                         <option value="Czarna Białostocka">Czarna Białostocka</option>
                         <option value="Wyszków">Wyszków</option>
-                   
+
                     </select>
                 </div>
-                </div>
+            </div>
 
             <div class="flex">
                 <div class="w-25">
                     <label class="form-label pt" for="location2">Lokalizacja</label>
                 </div>
                 <div class="flex-1">
-                    <select name="location2" class="form-input" id="secondDropdown">                        
+                    <select name="location2" class="form-input" id="secondDropdown">
                     </select>
                 </div>
             </div>
@@ -39,7 +38,6 @@
                 </div>
                 <div class="flex-1">
                     <select name="type" class="form-input" id="thirdDropdown">
-                        
                     </select>
                 </div>
             </div>
@@ -50,63 +48,23 @@
                 </div>
                 <div class="flex-1">
                     <select name="Equipment" class="form-input" id="fourthDropdown">
-                        
                     </select>
                 </div>
             </div>
-            
+
         </div>
-
-        <div class="form-field flex">
-            <div class="w-25">
-                <label class="form-label pt" for="TagId">Tag</label>
-            </div>
-            <div class="flex-1">
-                <select name="TagId" id="TagId" class="form-input">
-                    <option value="">Wybierz tag</option>
-                    @foreach (var tag in ViewBag.Tags)
-                    {
-                        <option value="@tag.TagId">@tag.TagName</option>
-                    }
-                </select>
-            </div>
-        </div>
-
-        <div class="form-field flex">
-            <div class="w-25">
-                <label class="form-label pt" for="Description">Opis zadania</label>
-            </div>
-            <div class="flex-1">
-                <input class="form-input" type="text" id="Description" name="Description" />
-            </div>
-        </div>
-
-        <div class="form-field flex">
-            <div class="w-25">
-                <label class="form-label pt" for="DueDate">Termin wykonania</label>
-            </div>
-            <div class="flex-1">
-                <input class="form-input" type="date" id="DueDate" name="DueDate" />
-            </div>
-        </div>        
-
-        <div class="form-field flex">
-            <div class="w-25">
-            </div>
-            <div class="flex-1">
-                <button class="button button-green-back">Dodaj</button>
-            </div>
-        </div>
-
-    </div>
-
-    
+    </div>    
 </form>
+<div class="w-50-report-button">
+    <div class="right">
+        <button id="submitBtn2" class="button button-blue-back">Dalej</button>
+    </div>
+</div>
 
 @section scripts {
     <script>
         $('#firstDropdown').change(function () {
-            var firstDropdownVal = $(this).val();            
+            var firstDropdownVal = $(this).val();
 
             // Wywołaj akcję kontrolera, aby pobrać opcje dla drugiej listy
             $.get('/add-task/GetSecondDropdownOptions', { firstDropdownVal: firstDropdownVal }, function (data) {
@@ -121,8 +79,8 @@
                 // Dodaj nowe opcje do drugiej listy
                 $.each(data, function (index, item) {
                     $('#secondDropdown').append($('<option>', {
-                        value: item.location2Id, 
-                        text: item.location2Name 
+                        value: item.location2Id,
+                        text: item.location2Name
                     }));
                 });
 
@@ -134,7 +92,7 @@
 
         $('#secondDropdown').change(function () {
             var firstDropdownVal = $('#firstDropdown').val();
-            var secondDropdownVal = $(this).val();            
+            var secondDropdownVal = $(this).val();
 
             // Wywołaj akcję kontrolera, aby pobrać opcje dla drugiej listy
             $.get('/add-task/GetThirdDropdownOptions', { firstDropdownVal: firstDropdownVal, secondDropdownVal: secondDropdownVal }, function (data) {
@@ -153,7 +111,7 @@
                         text: item.typeName
                     }));
                 });
-                
+
                 $('#fourthDropdown').empty();
             });
         });
@@ -179,13 +137,17 @@
                         value: item.equipmentId,
                         text: item.equipmentCascade
                     }));
-                });                
+                });
             });
         });
 
-       
-        
+        document.getElementById("submitBtn2").addEventListener("click", function () {
+            window.location.href = "/zgloszenie3";
+        });
+
+
+
     </script>
-   
+
 
 }

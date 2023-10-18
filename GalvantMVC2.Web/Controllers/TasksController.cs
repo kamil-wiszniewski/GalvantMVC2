@@ -55,8 +55,52 @@ namespace GalvantMVC2.Web.Controllers
         [HttpGet]
         public IActionResult GetSecondDropdownOptions(string firstDropdownVal)
         {
-            var lokacje = _taskService.GetDataForSecondDropdown(firstDropdownVal);
-            return Json(lokacje);
+            var location1s = _taskService.GetDataForSecondDropdown(firstDropdownVal);
+            return Json(location1s);
+        }
+
+        [Route("add-task/GetThirdDropdownOptions")]
+        [HttpGet]
+        public IActionResult GetThirdDropdownOptions(string firstDropdownVal, int secondDropdownVal)
+        {
+            var types = _taskService.GetDataForThirdDropdown(firstDropdownVal, secondDropdownVal);
+            return Json(types);
+        }
+
+        [Route("add-task/GetFourthDropdownOptions")]
+        [HttpGet]
+        public IActionResult GetFourthDropdownOptions(string firstDropdownVal, int secondDropdownVal, int thirdDropdownVal)
+        {
+            var equipment = _taskService.GetDataForFourthDropdown(firstDropdownVal, secondDropdownVal, thirdDropdownVal);
+            return Json(equipment);
+        }
+
+        [Route("zgloszenie1")]
+        [HttpGet]
+        public IActionResult ZgloszenieStep1()
+        {
+            return View();
+        }
+
+        [Route("zgloszenie2")]
+        [HttpGet]
+        public IActionResult ZgloszenieStep2()
+        {
+            return View();
+        }
+
+        [Route("zgloszenie3")]
+        [HttpGet]
+        public IActionResult ZgloszenieStep3()
+        {
+            return View();
+        }
+
+        [Route("zgloszenie4")]
+        [HttpGet]
+        public IActionResult ZgloszenieStep4()
+        {
+            return View();
         }
     }
 }

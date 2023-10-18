@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Add Files";
+}
+
+<h1>Dodaj pliki</h1>
+<div class="w-75-flex">
+<div class="box">
+    <div class="form-field flex">
+        <div class="w-25">
+            <label class="form-label pt" for="CategoryId">Kategoria</label>
+        </div>
+        <div class="flex-1">
+            <select name="CategoryId" id="CategoryId" class="form-input">
+                <option value="">Wybierz kategorię</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.CategoryId">@category.CategoryName</option>
+                }
+            </select>
+        </div>
+    </div>
+    <h3>Pliki</h3>
+
+    <div class="input-bx">
+        <h4 class="upload-area-title">Dokumentacja techniczno ruchowa</h4>
+        <input type="file" id="upload" accept=".pdf" multiple="multiple" name="name" hidden />
+        <label for="upload" class="uploadlabel">
+            <span><i class="fa-solid fa-cloud-upload"></i></span>
+            <p>Kliknij aby wgrać pliki</p>
+        </label>
+
+        <div id="filewrapper">
+            <h4 class="uploaded">Wgrane pliki:</h4>           
+        </div>
+        <div class="centered-button">
+            <button type="button" id="submitBtn1" class="upload-button">Prześlij pliki</button>
+        </div>
+
+    </div>
+</div>
+</div>

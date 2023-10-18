@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Zgłoszenie3";
+}
+
+<h1>Zgłoś </h1>
+<h3>Krok 3/4: Dodaj opis</h3>
+<form asp-controller="Tasks" asp-action="ZgloszenieStep3" method="post">
+    <div class="w-50-report">
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Notes">Opis</label>
+            </div>
+            <div class="flex-1">
+                <textarea class="form-input" id="Notes" name="Notes"></textarea>
+            </div>
+        </div>
+    </div>
+    
+</form>
+<div class="w-50-report-button">
+    <div class="right">
+        <button id="submitBtn3" class="button button-blue-back">Dalej</button>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        document.getElementById("submitBtn3").addEventListener("click", function () {
+            window.location.href = "/zgloszenie4";
+        });
+    </script>
+}

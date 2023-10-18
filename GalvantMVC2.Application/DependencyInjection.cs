@@ -13,7 +13,8 @@ namespace GalvantMVC2.Application
             services.AddTransient<ITaskService, TaskService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<ILocation2Service, Location2Service>();
-            services.AddTransient<IEquipmentService, EquipmentService>();            
+            services.AddTransient<IEquipmentService, EquipmentService>();
+            services.AddTransient<IFileService, FileService>();
             return services;
         }
     }

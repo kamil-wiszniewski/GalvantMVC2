@@ -12,11 +12,13 @@ namespace GalvantMVC2.Web.Controllers
         private readonly ITypeService _typeService;
         private readonly ILocation2Service _location2Service;
         private readonly IEquipmentService _equipmentService;
-        public EquipmentController(ITypeService typeService, ILocation2Service location2Service, IEquipmentService equipmentService)
+        private readonly IFileService _fileService;
+        public EquipmentController(ITypeService typeService, ILocation2Service location2Service, IEquipmentService equipmentService, IFileService fileService)
         {
             _typeService = typeService;
             _location2Service = location2Service;
             _equipmentService = equipmentService;
+            _fileService = fileService;
         }
 
         [Route("/")]
@@ -146,6 +148,15 @@ namespace GalvantMVC2.Web.Controllers
             });
 
             return View(editEquipmentVm);
-        }        
+        }
+
+        [Route("add-files")]
+        [HttpGet]
+        public IActionResult AddFiles()
+        {
+            List<CategoriesVm> categories = _fileService.GetAllCategories();
+            ViewBag.Categories = categories;
+            return View();
+        }
     }
 }

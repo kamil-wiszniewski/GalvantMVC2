@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Zgłoszenie4";
+}
+
+<h1>Zgłoś </h1>
+<h3>Krok 4/4: Dodaj zdjęcia</h3>
+<form asp-controller="Tasks" asp-action="ZgloszenieStep1" method="post">
+    <div class="w-50">
+        <div class="box">
+            <h3>Zdjęcia</h3>
+
+
+            <div class="input-bx">
+                <input type="file" id="upload" accept=".pdf" multiple="multiple" name="name" hidden />
+                <label for="upload" class="uploadlabel">
+                    <span><i class="fa-solid fa-cloud-upload"></i></span>
+                    <p>Kliknij aby wgrać zdjęcia</p>
+                </label>
+
+                <div id="filewrapper">
+                    <h4 class="uploaded">Wgrane zdjęcia:</h4>
+                    @* <div class="showfilebox">
+                    <div class="left">
+                    <span class="filetype">PDF</span>
+                    <h4>Kamil.pdf</h4>
+                    </div>
+                    <div class="right">
+                    <span><i class="link fa-solid fa-trash" title="Usuń"></i></span>
+                    </div>
+                    </div> *@
+                </div>
+                <div class="centered-button">
+                    <button type="button" id="submitBtn1" class="upload-button">Prześlij zdjęcia</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="w-50-report-button">
+        <div class="right">
+            <button class="button button-green-back">Wyślij</button>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script>
+        window.addEventListener("load", () => {
+            const input = document.getElementById("upload");
+            const filewrapper = document.getElementById("filewrapper");
+            const submitButton = document.getElementById("submitBtn1");
+
+            let selectedFiles = [];
+
+            input.addEventListener("change", (e) => {
+                const files = e.target.files;
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i];
+                    let fileName = file.name;
+                    let fileType = fileName.split(".").pop();
+                    let fileURL = URL.createObjectURL(file); // Tworzy tymczasowy adres URL dla pliku
+
+                    fileshow(fileName, fileType, fileURL, file);
+                }
+            });
+
+            const fileshow = (fileName, fileType, fileURL, file) => {
+                const showfileboxElem = document.createElement("div");
+                showfileboxElem.classList.add("showfilebox");
+                const leftElem = document.createElement("div");
+                leftElem.classList.add("left");
+                const fileTypeElem = document.createElement("span");
+                fileTypeElem.classList.add("filetype");
+                fileTypeElem.innerHTML = fileType;
+
+                const fileLinkElem = document.createElement("a");
+                fileLinkElem.href = fileURL;
+                fileLinkElem.target = "_blank";  // Otwiera link w nowym oknie/karcie
+                fileLinkElem.innerHTML = fileName;
+                fileLinkElem.classList.add("upload-link");
+
+                leftElem.append(fileTypeElem);
+                leftElem.append(fileLinkElem);
+                showfileboxElem.append(leftElem);
+
+                const rightElem = document.createElement("div");
+                rightElem.classList.add("right");
+                showfileboxElem.append(rightElem);
+                const trashcanElem = document.createElement("span");
+                trashcanElem.innerHTML = '<i class="link fa-solid fa-trash" title="Usuń"></i>';
+                rightElem.append(trashcanElem);
+
+                filewrapper.append(showfileboxElem);
+
+                trashcanElem.addEventListener("click", () => {
+                    filewrapper.removeChild(showfileboxElem);
+                    selectedFiles = selectedFiles.filter(f => f !== file);
+                })
+
+                selectedFiles.push(file);
+            };
+
+            submitButton.addEventListener("click", () => {
+                const formData = new FormData();
+                selectedFiles.forEach(file => {
+                    formData.append("files", file);
+                });
+
+                fetch("/add-equipment/upload-files", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Otrzymana odpowiedź od serwera po przesłaniu plików
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        // Obsługa błędu
+                        console.error("Błąd:", error);
+                    });
+            });
+        });
+    </script>
+}

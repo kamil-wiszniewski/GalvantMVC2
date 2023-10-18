@@ -26,6 +26,8 @@ namespace GalvantMVC2.Infrastructure
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Domain.Model.File> Files { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
 
         public Context(DbContextOptions options) : base(options)

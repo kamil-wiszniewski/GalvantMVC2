@@ -22,6 +22,7 @@ namespace GalvantMVC2.Domain.Interfaces
         IQueryable<Location2> GetAllLocations2();
 
         IQueryable<Equipment> GetAllActiveEquipment();
+        //IQueryable<Forklift> GetAllActiveForklifts();
 
         string GetTypeNameById(int typeId);
 
@@ -34,6 +35,8 @@ namespace GalvantMVC2.Domain.Interfaces
         Hoist GetHoistByEquipmentId(int equipmentId);
 
         Equipment GetEquipmentById(int equipmentId);
+
+        IQueryable<Category> GetAllCategories();
 
     }
 }

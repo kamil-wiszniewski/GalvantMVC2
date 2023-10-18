@@ -15,6 +15,11 @@ namespace GalvantMVC2.Application.Interfaces
         List<TasksListVm> GetAllTasksForList();
 
         List<TasksListVm> GetFilteredTasksForList(string tag);
+
         List<Location2Vm> GetDataForSecondDropdown(string firstDropdownVal);
+
+        List<TypesVm> GetDataForThirdDropdown(string firstDropdownVal, int secondDropdownVal);
+
+        List<EquipmentForCascadeSearchVm> GetDataForFourthDropdown(string firstDropdownVal, int secondDropdownVal, int thirdDropdownVal);
     }
 }

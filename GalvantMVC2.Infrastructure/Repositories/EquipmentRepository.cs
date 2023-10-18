@@ -62,6 +62,12 @@ namespace GalvantMVC2.Infrastructure.Repositories
             return equipment;
         }
 
+        /*public IQueryable<Forklift> GetAllActiveForklifts()
+        {
+            var forklifts = _context.Forklifts;
+            return forklifts;   
+        }*/
+
         public string GetTypeNameById(int typeId)
         {
             var type = _context.Types.FirstOrDefault(t => t.TypeId == typeId);
@@ -96,6 +102,12 @@ namespace GalvantMVC2.Infrastructure.Repositories
         {
             var equipment = _context.Equipment.FirstOrDefault(i => i.EquipmentId == equipmentId);
             return equipment;
+        }
+
+        public IQueryable<Category> GetAllCategories()
+        {
+            var categories = _context.Categories;
+            return categories;
         }
 
 

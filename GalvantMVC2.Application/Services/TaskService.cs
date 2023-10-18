@@ -59,7 +59,7 @@ namespace GalvantMVC2.Application.Services
                     result.Add(taskVm);
                 }
                 return result;            
-        }
+        }        
 
         public List<Location2Vm> GetDataForSecondDropdown(string firstDropdownVal)
         {
@@ -78,6 +78,54 @@ namespace GalvantMVC2.Application.Services
                                })
                                .ToList();
 
+            return data;
+        }
+
+        public List<TypesVm> GetDataForThirdDropdown(string firstDropdownVal, int secondDropdownVal)
+        {
+            List<Equipment> equipment = _equipmentRepo.GetAllActiveEquipment()
+                              .Where(e => e.Location1 == firstDropdownVal &&
+                                          e.Location2Id == secondDropdownVal)
+                              .ToList();
+
+            List<int> typeIds = equipment.Select(e => e.TypeId).Distinct().ToList();
+
+            List<TypesVm> data = _equipmentRepo.GetAllTypes()
+                               .Where(l => typeIds.Contains(l.TypeId))
+                               .Select(l => new TypesVm
+                               {
+                                   TypeId = l.TypeId,
+                                   TypeName = l.TypeName,
+                               })
+                               .ToList();
+
+            return data;
+        }
+
+        public List<EquipmentForCascadeSearchVm> GetDataForFourthDropdown(string firstDropdownVal, int secondDropdownVal, int thirdDropdownVal)
+        {
+            List<Equipment> equipment = _equipmentRepo.GetAllActiveEquipment()
+                              .Where(e => e.Location1 == firstDropdownVal &&
+                                          e.Location2Id == secondDropdownVal &&
+                                          e.TypeId == thirdDropdownVal)
+                              .ToList();
+
+            List<EquipmentForCascadeSearchVm> data = new List<EquipmentForCascadeSearchVm>();
+
+            foreach (var e in equipment)
+            {
+                if (e.TypeId == 1)
+                {
+                    Forklift forklift = _equipmentRepo.GetForkliftByEquipmentId(e.EquipmentId);
+
+                    EquipmentForCascadeSearchVm equ = new EquipmentForCascadeSearchVm
+                    {
+                        EquipmentId = e.EquipmentId,
+                        EquipmentCascade = "Nr inwentarzowy: " + forklift.InventoryNumber 
+                    };
+                    data.Add(equ);
+                }               
+            }
             return data;
         }
 
