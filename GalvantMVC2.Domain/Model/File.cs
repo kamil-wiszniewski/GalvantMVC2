@@ -12,7 +12,7 @@ namespace GalvantMVC2.Domain.Model
         public int EquipmentId { get; set; }
         public int CategoryId { get; set; }
         public string FileName { get; set; }
-        public int FileSize { get; set; }
+        public long FileSize { get; set; }
         public string FileExtension { get; set; }
         public byte[] FileData { get; set; }
         

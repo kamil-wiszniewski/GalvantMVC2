@@ -4,6 +4,8 @@ using GalvantMVC2.Application.ViewModels.AdditionalFields;
 using GalvantMVC2.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace GalvantMVC2.Web.Controllers
 {
@@ -72,51 +74,25 @@ namespace GalvantMVC2.Web.Controllers
 
         [HttpPost]
         [Route("add-equipment/upload-files")]
-        public async Task<IActionResult> UploadFiles(List<IFormFile> files)
+        [RequestSizeLimit(50 * 1024 * 1024)]    
+        public async Task<IActionResult> UploadFiles(List<IFormFile> files, int categoryId)
         {
-            try
+            if (files.Count > 5)
             {
-                // Ścieża do folderu, gdzie pliki zostaną zapisane (zmodyfikuj ją według swoich potrzeb)
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-
-                // Sprawdź, czy folder istnieje, jeśli nie, utwórz go
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                var fileNames = new List<string>();
-
-                // Iteruj przez przesłane pliki
-                foreach (var file in files)
-                {
-                    if (file.Length > 0)
-                    {
-                        // Unikalna nazwa dla każdego pliku, aby uniknąć kolizji
-                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-
-                        // Pełna ścieżka do pliku
-                        var filePath = Path.Combine(uploadsFolder, fileName);
-
-                        // Zapisz plik na dysku
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
-
-                        // Dodaj nazwę pliku do listy
-                        fileNames.Add(fileName);
-                    }
-                }
-
-                // Zwróć odpowiedź JSON z nazwami zapisanych plików
-                return Json(new { success = true, message = "Pliki przesłane pomyślnie.", fileNames });
+                Console.WriteLine("Ponad 5 plików");
+                this.ModelState.AddModelError("files", "You cannot upload more than 5 images");
+                return this.View();
             }
-            catch (Exception ex)
+
+            if (files.Any(i => i.Length > 10 * 1024 * 1024))
             {
-                // Obsługa błędów
-                return Json(new { success = false, message = "Wystąpił błąd podczas przesyłania plików." });
+                this.ModelState.AddModelError("files", "The size of your image cannot be more than 10 MB");
+                return this.View();
             }
+
+            _fileService.Upload(files, categoryId);
+
+            return Json(new { success = true, message = "Pliki przesłane pomyślnie."});
         }
 
 
@@ -157,6 +133,15 @@ namespace GalvantMVC2.Web.Controllers
             List<CategoriesVm> categories = _fileService.GetAllCategories();
             ViewBag.Categories = categories;
             return View();
+        }
+
+        [Route("add-files/GetFilesByCategory")]
+        [HttpGet]
+        public ActionResult GetFilesByCategory(int categoryId)
+        {
+            List<FileVm> fileModels = _fileService.GetFilesByCategory(categoryId);           
+
+            return PartialView("_FileTable", fileModels);
         }
     }
 }

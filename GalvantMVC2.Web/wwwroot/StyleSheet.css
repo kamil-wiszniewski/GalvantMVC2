@@ -721,10 +721,14 @@ a.upload-link:link, a.upload-link:visited{
 .w-75-flex {
     width:75%;
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
 }
 
-
+.flex-ver {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 
 

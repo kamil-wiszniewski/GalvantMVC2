@@ -1,0 +1,23 @@
+﻿@using GalvantMVC2.Application.ViewModels.Equipment
+
+@model IEnumerable<FileVm>
+
+
+    @foreach (FileVm file in Model)
+    {
+        <tr>
+            <td style="width:15%">1</td>
+            <td style="width:15%">@file.FileName</td>
+            <td style="width:15%">@file.FileSize</td>
+            <td style="width:15%">@file.FileExtension</td>            
+            <td style="width:15%">                
+
+                @*<a href="~/root"> <i class="options-link fa-solid fa-pen" title="Edytuj"></i></a>*@
+                @*<a asp-controller="Equipment" asp-action="EditEquipment" asp-route-equipmentId="@equipment.EquipmentId"><i class="options-link fa-solid fa-pen" title="Edytuj"></i></a>*@
+
+                <a href="~/root"> <i class="options-link fa-solid fa-trash" title="Usuń"></i></a>
+            </td>
+        </tr>
+    }
+    <tr></tr>
+

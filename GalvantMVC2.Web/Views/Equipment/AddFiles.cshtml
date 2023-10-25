@@ -3,9 +3,8 @@
 }
 
 <h1>Dodaj pliki</h1>
-<div class="w-75-flex">
-<div class="box">
-    <div class="form-field flex">
+<div class="flex-ver">
+    <div class="w-75 form-field flex">
         <div class="w-25">
             <label class="form-label pt" for="CategoryId">Kategoria</label>
         </div>
@@ -19,6 +18,8 @@
             </select>
         </div>
     </div>
+<div class="w-75 box">
+    
     <h3>Pliki</h3>
 
     <div class="input-bx">
@@ -39,3 +40,187 @@
     </div>
 </div>
 </div>
+
+<h3>Dokumentacja techniczno-ruchowa</h3>
+<table class="table w-100 mt">
+    <thead>
+        <tr>
+            <th>Nr</th>
+            <th>Nazwa</th>
+            <th>Rozszerzenie</th>
+            <th>Rozmiar</th>            
+            <th>Opcje</th>
+        </tr>
+    </thead>
+    <tbody id="technicalDocsTable">
+
+    </tbody>
+
+</table>
+
+<h3>Schemat elektryczny</h3>
+<table class="table w-100 mt">
+    <thead>
+        <tr>
+            <th>Nr</th>
+            <th>Nazwa</th>
+            <th>Rozszerzenie</th>
+            <th>Rozmiar</th>
+            <th>Opcje</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+
+</table>
+
+<h3>Inne</h3>
+<table class="table w-100 mt">
+    <thead>
+        <tr>
+            <th>Nr</th>
+            <th>Nazwa</th>
+            <th>Rozszerzenie</th>
+            <th>Rozmiar</th>
+            <th>Opcje</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+
+</table>
+
+@section scripts{
+    <script>
+        window.addEventListener("load", () => {
+            const input = document.getElementById("upload");
+            const filewrapper = document.getElementById("filewrapper");
+            const submitButton = document.getElementById("submitBtn1");
+
+            let selectedFiles = [];
+
+            input.addEventListener("change", (e) => {
+                const files = e.target.files;
+                for (let i = 0; i < files.length; i++) {
+                    let file = files[i];
+                    let fileName = file.name;
+                    let fileType = fileName.split(".").pop();
+                    let fileURL = URL.createObjectURL(file); // Tworzy tymczasowy adres URL dla pliku
+
+                    fileshow(fileName, fileType, fileURL, file);
+                }
+            });
+
+            const fileshow = (fileName, fileType, fileURL, file) => {
+                const showfileboxElem = document.createElement("div");
+                showfileboxElem.classList.add("showfilebox");
+                const leftElem = document.createElement("div");
+                leftElem.classList.add("left");
+                const fileTypeElem = document.createElement("span");
+                fileTypeElem.classList.add("filetype");
+                fileTypeElem.innerHTML = fileType;
+
+                const fileLinkElem = document.createElement("a");
+                fileLinkElem.href = fileURL;
+                fileLinkElem.target = "_blank";  // Otwiera link w nowym oknie/karcie
+                fileLinkElem.innerHTML = fileName;
+                fileLinkElem.classList.add("upload-link");
+
+                leftElem.append(fileTypeElem);
+                leftElem.append(fileLinkElem);
+                showfileboxElem.append(leftElem);
+
+                const rightElem = document.createElement("div");
+                rightElem.classList.add("right");
+                showfileboxElem.append(rightElem);
+                const trashcanElem = document.createElement("span");
+                trashcanElem.innerHTML = '<i class="link fa-solid fa-trash" title="Usuń"></i>';
+                rightElem.append(trashcanElem);
+
+                filewrapper.append(showfileboxElem);
+
+                trashcanElem.addEventListener("click", () => {
+                    filewrapper.removeChild(showfileboxElem);
+                    selectedFiles = selectedFiles.filter(f => f !== file);
+                })
+
+                selectedFiles.push(file);
+            };
+
+            submitButton.addEventListener("click", () => {
+                // Pobierz id wybranej kategorii
+                const categoryId = document.getElementById("CategoryId").value;
+                if (!categoryId) {
+                    alert("Wybierz kategorię przed przesłaniem plików!");
+                    // Przerwij przetwarzanie, jeśli nie wybrano kategorii
+                    return;
+                }
+
+                const formData = new FormData();
+                selectedFiles.forEach(file => {
+                    formData.append("files", file);
+                });
+
+                // Dodaj id kategorii do formularza
+                formData.append("categoryId", categoryId);
+
+                fetch("/add-equipment/upload-files", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Otrzymana odpowiedź od serwera po przesłaniu plików
+                        console.log(data);
+
+                        // Usuń wszystkie divy z klasą showfilebox
+                        const showfileboxes = document.querySelectorAll(".showfilebox");
+                        showfileboxes.forEach(box => {
+                            box.remove();
+                        });
+
+                        // Wyświetl komunikat/alert o sukcesie
+                        alert("Pliki zostały przesłane pomyślnie!");
+
+                        // Oczyść pamięć przeglądarki związana z obiektami URL plików
+                        selectedFiles.forEach(file => {
+                            URL.revokeObjectURL(file);
+                        });
+
+                        // Wyczyść wybrane pliki
+                        selectedFiles = [];
+
+                        // Oczyść pole input
+                        input.value = null;
+
+                        fetch("/add-files/GetFilesByCategory?categoryId=" + categoryId, {
+                            method: "GET"
+                        })
+                            .then(response => response.text())
+                            .then(data => {
+                                console.log(typeof categoryId);
+                                // Zaktualizuj tylko odpowiednią tabelę na stronie
+                                //switch (categoryId) {
+                                    //case 1: // Techniczno-ruchowa
+                                        document.getElementById("technicalDocsTable").innerHTML = data;
+                                        //break;
+                                    /*case 2: // Schemat elektryczny
+                                        document.getElementById("electricalSchemasTable").innerHTML = data;
+                                        break;
+                                    case 3: // Inne
+                                        document.getElementById("otherFilesTable").innerHTML = data;
+                                        break;*/
+                                    //default:
+                                        //break;
+                                //}
+                            })
+
+                    })
+                    .catch(error => {
+                        // Obsługa błędu
+                        console.error("Błąd:", error);
+                    });
+            });
+        });
+    </script>
+}

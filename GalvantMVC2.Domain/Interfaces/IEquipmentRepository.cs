@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = GalvantMVC2.Domain.Model.File;
 
 namespace GalvantMVC2.Domain.Interfaces
 {
     public interface IEquipmentRepository
     {
         int AddEquipment(Equipment equipment);
+
+        int AddFile(File file);
 
         int AddForklift(Forklift forklift);
 
@@ -37,6 +40,8 @@ namespace GalvantMVC2.Domain.Interfaces
         Equipment GetEquipmentById(int equipmentId);
 
         IQueryable<Category> GetAllCategories();
+
+        IQueryable<File> GetAllFiles();
 
     }
 }

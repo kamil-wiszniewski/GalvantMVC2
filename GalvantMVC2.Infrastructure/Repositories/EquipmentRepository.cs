@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = GalvantMVC2.Domain.Model.File;
 
 namespace GalvantMVC2.Infrastructure.Repositories
 {
@@ -21,6 +22,13 @@ namespace GalvantMVC2.Infrastructure.Repositories
             _context.Equipment.Add(equipment);
             _context.SaveChanges();
             return equipment.EquipmentId;
+        }
+
+        public int AddFile(File file)
+        {
+            _context.Files.Add(file);
+            _context.SaveChanges();
+            return file.FileId;
         }
 
         public int AddForklift(Forklift forklift)
@@ -110,6 +118,10 @@ namespace GalvantMVC2.Infrastructure.Repositories
             return categories;
         }
 
-
+        public IQueryable<File> GetAllFiles()
+        {
+            var files = _context.Files;
+            return files;
+        }
     }
 }
