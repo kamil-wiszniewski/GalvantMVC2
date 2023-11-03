@@ -28,6 +28,8 @@ namespace GalvantMVC2.Infrastructure
         public DbSet<Role> Roles { get; set; }
         public DbSet<Domain.Model.File> Files { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<TaskEmployee> TaskEmployee { get; set; }
 
 
         public Context(DbContextOptions options) : base(options)
@@ -45,6 +47,19 @@ namespace GalvantMVC2.Infrastructure
             builder.Entity<Equipment>()
                 .HasOne(a => a.Gantry).WithOne(b => b.Equipment)
                 .HasForeignKey<Gantry>(c => c.EquipmentId);
+
+            builder.Entity<TaskEmployee>()
+                .HasKey(te => new {te.TaskId, te.EmployeeId});
+
+            builder.Entity<TaskEmployee>()
+                .HasOne<Domain.Model.Task>(te => te.Task)
+                .WithMany(t => t.TaskEmployee)
+                .HasForeignKey(te => te.TaskId);
+
+            builder.Entity<TaskEmployee>()
+                .HasOne<Employee>(te => te.Employee)
+                .WithMany(e => e.TaskEmployee)
+                .HasForeignKey(te => te.EmployeeId);
 
             builder.Entity<Forklift>()
             .Property(c => c.LiftingCapacity)
@@ -104,6 +119,10 @@ namespace GalvantMVC2.Infrastructure
 
             builder.Entity<Hoist>()
             .Property(c => c.Weight)
+            .HasColumnType("decimal(9,2)");
+
+            builder.Entity<Domain.Model.Task>()
+            .Property(c => c.Cost)
             .HasColumnType("decimal(9,2)");
         }
     }

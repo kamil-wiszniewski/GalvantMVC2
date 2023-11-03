@@ -59,8 +59,8 @@ namespace GalvantMVC2.Web.Controllers
         [HttpPost]
         public IActionResult AddEquipment(AddEquipmentVm model, AdditionalFieldsVm additionalFieldsModel)
         {
-            var id = _equipmentService.AddEquipment(model, additionalFieldsModel);
-            return RedirectToAction("Index");
+            var equipmentId = _equipmentService.AddEquipment(model, additionalFieldsModel);
+            return Redirect($"/add-files/{equipmentId}");
         }
     
 
@@ -75,7 +75,7 @@ namespace GalvantMVC2.Web.Controllers
         [HttpPost]
         [Route("add-equipment/upload-files")]
         [RequestSizeLimit(50 * 1024 * 1024)]    
-        public async Task<IActionResult> UploadFiles(List<IFormFile> files, int categoryId)
+        public async Task<IActionResult> UploadFiles(List<IFormFile> files, int categoryId, int equipmentId)
         {
             if (files.Count > 5)
             {
@@ -90,7 +90,7 @@ namespace GalvantMVC2.Web.Controllers
                 return this.View();
             }
 
-            _fileService.Upload(files, categoryId);
+            _fileService.Upload(files, categoryId, equipmentId);
 
             return Json(new { success = true, message = "Pliki przesłane pomyślnie."});
         }
@@ -126,10 +126,11 @@ namespace GalvantMVC2.Web.Controllers
             return View(editEquipmentVm);
         }
 
-        [Route("add-files")]
+        [Route("add-files/{equipmentid}")]
         [HttpGet]
-        public IActionResult AddFiles()
+        public IActionResult AddFiles(int equipmentId)
         {
+            ViewBag.EquipmentId = equipmentId;
             List<CategoriesVm> categories = _fileService.GetAllCategories();
             ViewBag.Categories = categories;
             return View();
@@ -137,11 +138,42 @@ namespace GalvantMVC2.Web.Controllers
 
         [Route("add-files/GetFilesByCategory")]
         [HttpGet]
-        public ActionResult GetFilesByCategory(int categoryId)
+        public ActionResult GetFilesByCategory(int categoryId, int equipmentId)
         {
-            List<FileVm> fileModels = _fileService.GetFilesByCategory(categoryId);           
+            List<FileVm> fileModels = _fileService.GetFilesByCategory(categoryId, equipmentId);           
 
             return PartialView("_FileTable", fileModels);
         }
+
+        [Route("download-file/{fileId}")]
+        [HttpGet]
+        public IActionResult DownloadFile(int fileId)
+        {
+            // Pobierz plik z bazy danych na podstawie identyfikatora
+            byte[] fileBytes = _fileService.GetFileBytesById(fileId);            
+
+            // Utwórz odpowiedź HTTP z plikiem do pobrania
+            var contentDisposition = new System.Net.Mime.ContentDisposition
+            {
+                FileName = _fileService.GetFileNameByFileId(fileId), // Ustaw nazwę pliku tutaj
+                Inline = true  // Ustaw na true, jeśli chcesz otworzyć plik w przeglądarce, zamiast pobierać go
+            };
+            Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+            Response.Headers.Add("Content-Type", "application/pdf");
+
+            return File(fileBytes, "application/pdf"); // Zwróć plik jako odpowiedź do przeglądarki
+        }
+
+        [Route("delete-file/{fileId}")]
+        [HttpGet]
+        public ActionResult DeleteFile(int fileId)
+        {
+            int categoryId = _fileService.GetCategoryIdByFileId(fileId);
+            _fileService.DeleteFile(fileId);
+
+            return Json(new { success = true, categoryId, message = "Plik został pomyślnie usunięty." });
+        }
+
+
     }
 }

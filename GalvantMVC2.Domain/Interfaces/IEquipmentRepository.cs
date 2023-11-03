@@ -43,5 +43,8 @@ namespace GalvantMVC2.Domain.Interfaces
 
         IQueryable<File> GetAllFiles();
 
+        File GetFileByFileId(int fileId);
+
+        void DeleteFile(int fileId);
     }
 }

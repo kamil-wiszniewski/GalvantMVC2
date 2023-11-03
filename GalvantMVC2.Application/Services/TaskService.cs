@@ -26,10 +26,9 @@ namespace GalvantMVC2.Application.Services
         {
             var task = new Domain.Model.Task
             {
-                CreationDate = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 TagId = model.TagId,
-                Description = model.Description,
-                Equipment = model.Equipment,
+                Description = model.Description,               
                 DueDate = model.DueDate
             };
             _taskRepo.AddTask(task);
@@ -48,11 +47,9 @@ namespace GalvantMVC2.Application.Services
 
                     var taskVm = new TasksListVm()
                     {
-                        TaskId = task.TaskId,
-                        CreationDate = task.CreationDate,
+                        TaskId = task.TaskId,                        
                         TagName = tagName,
-                        Description = task.Description,
-                        Equipment = task.Equipment,
+                        Description = task.Description,                        
                         DueDate = task.DueDate
                     };                   
 
@@ -161,11 +158,9 @@ namespace GalvantMVC2.Application.Services
 
                 var taskVm = new TasksListVm()
                 {
-                    TaskId = task.TaskId,
-                    CreationDate = task.CreationDate,
+                    TaskId = task.TaskId,                    
                     TagName = tagName,
-                    Description = task.Description,
-                    Equipment = task.Equipment,
+                    Description = task.Description,                    
                     DueDate = task.DueDate
                 };
 

@@ -20,6 +20,7 @@ namespace GalvantMVC2.Domain.Model
         public Forklift Forklift { get; set; }
 
         public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
 
     }
 }

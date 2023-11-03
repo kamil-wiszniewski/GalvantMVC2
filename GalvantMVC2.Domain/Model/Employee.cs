@@ -17,5 +17,6 @@ namespace GalvantMVC2.Domain.Model
 
         public virtual Department Department { get; set; }
         public virtual Role Role { get; set; }
+        public virtual ICollection<TaskEmployee> TaskEmployee { get; set; }
     }
 }

@@ -590,7 +590,7 @@ a.tags-links:visited {
 .showfilebox .left{
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     gap: 10px;
 }
 
@@ -706,7 +706,7 @@ a.upload-link:link, a.upload-link:visited{
 .right {
     display: flex;
     justify-content: flex-end;
-    width: 100%;
+    /*width: 100%;*/
     
 }
 

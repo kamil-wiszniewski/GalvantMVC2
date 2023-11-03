@@ -123,5 +123,21 @@ namespace GalvantMVC2.Infrastructure.Repositories
             var files = _context.Files;
             return files;
         }
+
+        public File GetFileByFileId(int fileId)
+        {
+            var file = _context.Files.FirstOrDefault(f => f.FileId == fileId);
+            return file;
+        }
+
+        public void DeleteFile(int fileId)
+        {
+            var file = _context.Files.Find(fileId);
+            if (file != null)
+            {
+                _context.Files.Remove(file);
+                _context.SaveChanges();
+            }
+        }
     }
 }

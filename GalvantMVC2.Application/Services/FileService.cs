@@ -2,6 +2,7 @@
 using GalvantMVC2.Application.ViewModels.Equipment;
 using GalvantMVC2.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,13 +37,13 @@ namespace GalvantMVC2.Application.Services
             return categoriesVmList;
         }
 
-        public void Upload(List<IFormFile> files, int categoryId)
+        public void Upload(List<IFormFile> files, int categoryId, int equipmentId)
         {
             foreach (var file in files)
             {
                 Domain.Model.File newFile = new()
                 {
-                    EquipmentId = 1,
+                    EquipmentId = equipmentId,
                     CategoryId = categoryId,
                     FileName = file.FileName,
                     FileSize = file.Length,
@@ -53,23 +54,58 @@ namespace GalvantMVC2.Application.Services
             }
         }
 
-        public List<FileVm> GetFilesByCategory(int categoryId)
+        public List<FileVm> GetFilesByCategory(int categoryId, int equipmentId)
         {
-            var files = _equipmentRepo.GetAllFiles().Where(f => f.CategoryId == categoryId).ToList();
+            var files = _equipmentRepo.GetAllFiles().Where(f => f.EquipmentId == equipmentId && f.CategoryId == categoryId).ToList();
             List<FileVm> fileModels = new List<FileVm>();
 
             foreach (var file in files)
             {
                 FileVm fileVm = new FileVm
                 {
-                    FileName = file.FileName,
+                    FileId = file.FileId,
+                    FileName = Path.GetFileNameWithoutExtension(file.FileName),
                     FileExtension = Path.GetExtension(file.FileName),
-                    FileSize = file.FileSize
+                    FileSize = Math.Round((double)file.FileSize / (1024 * 1024), 2)
                 };
                 fileModels.Add(fileVm);
             }
             return fileModels;
         }
+
+        public byte[] GetFileBytesById(int fileId)
+        {
+            // Przykładowe zapytanie LINQ do pobrania pliku z bazy danych na podstawie fileId
+            var file = _equipmentRepo.GetFileByFileId(fileId);                 
+
+            // Sprawdź, czy plik został znaleziony w bazie danych
+            if (file != null)
+            {
+                // Zwróć bajty pliku
+                return file.FileData; // Załóżmy, że FileData to pole w klasie FileEntity przechowujące bajty pliku
+            }
+
+            // Jeśli plik nie został znaleziony, zwróć null lub odpowiedni komunikat o błędzie
+            return null;
+        }
+
+        public string GetFileNameByFileId(int fileId)
+        {
+            var file = _equipmentRepo.GetFileByFileId(fileId);
+            return file.FileName;
+        }
+
+        public void DeleteFile(int fileId)
+        {            
+            _equipmentRepo.DeleteFile(fileId);            
+        }
+
+        public int GetCategoryIdByFileId(int fileId)
+        {
+            var file = _equipmentRepo.GetFileByFileId(fileId);
+            return file.CategoryId;
+        }
+
 
         public byte[] GetBytesFromIFormFile(IFormFile file)
         {

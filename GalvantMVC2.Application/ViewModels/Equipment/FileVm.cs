@@ -8,8 +8,9 @@ namespace GalvantMVC2.Application.ViewModels.Equipment
 {
     public class FileVm
     {
+        public int FileId { get; set; }
         public string FileName { get; set; }
-        public long FileSize { get; set; }
+        public double FileSize { get; set; }
         public string FileExtension { get; set; }
     }
 }
