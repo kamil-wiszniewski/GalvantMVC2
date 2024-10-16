@@ -6,3 +6,5 @@ Machine inventory and task management application for a zinc plant
 - Integrated task management features, enabling efficient assignment and tracking of tasks related to specific devices within the system.
 
 Technologies used: C#, ASP.NET Core, Entity Framework, SQL, Java Script, html, cs
+
+![Screen1](images/1.png)
