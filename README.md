@@ -8,3 +8,5 @@ Machine inventory and task management application for a zinc plant
 Technologies used: C#, ASP.NET Core, Entity Framework, SQL, Java Script, html, css
 
 ![Screen1](images/1.png)
+
+More screenshots: [images](images/)
