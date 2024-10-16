@@ -1,0 +1,258 @@
+﻿@using GalvantMVC2.Application.ViewModels.Equipment
+
+@model EquipmentDetailsVm
+
+@if (Model.EquipmentDetailsSharedVm.TypeId == 1)
+{
+    <h3>Wózek widłowy</h3>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.Type" class="form-label pt">Typ</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.Type" class="form-input" disabled/>
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.Producer" class="form-label pt">Producent</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.Producer" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.ProductionYear" class="form-label pt">Rok produkcji</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.ProductionYear" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.FactoryNumber" class="form-label pt">Nr fabryczny</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.FactoryNumber" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.UDTNumber" class="form-label pt">Nr UDT</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.UDTNumber" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.InventoryNumber" class="form-label pt">Nr inwentarzowy</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.InventoryNumber" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.LiftingCapacity" class="form-label pt">Udźwig</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.LiftingCapacity" class="form-input" type="number" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.RaisingHeight" class="form-label pt">Wysokość podnoszenia</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.RaisingHeight" class="form-input" type="number" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.FuelType" class="form-label pt">Rodzaj paliwa</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.FuelType" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.Weight" class="form-label pt">Masa własna</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.Weight" class="form-input" type="number" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.UDTExpiryDate" class="form-label pt">badania UDT</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.UDTExpiryDate" class="form-input" type="date" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.ElectricalExpiryDate" class="form-label pt">pomiary elektryczne</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.ElectricalExpiryDate" class="form-input" type="date" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.ResursDate" class="form-label pt">Resurs</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.ResursDate" class="form-input" type="date" disabled />
+        </div>
+    </div>
+}
+
+@if (Model.EquipmentDetailsSharedVm.TypeId == 2)
+{
+    <h3>Suwnica</h3>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.Type" class="form-label pt">Typ</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.Type" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.Producer" class="form-label pt">Producent</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.Producer" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.ProductionYear" class="form-label pt">Rok produkcji</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.ProductionYear" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.FactoryNumber" class="form-label pt">Nr fabryczny</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.FactoryNumber" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.UDTNumber" class="form-label pt">Nr UDT</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.UDTNumber" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.InventoryNumber" class="form-label pt">Nr inwentarzowy</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.InventoryNumber" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.LiftingCapacity" class="form-label pt">Udźwig</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.LiftingCapacity" class="form-input" type="number" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.Range" class="form-label pt">Rozpiętość w m</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.Range" class="form-input" type="number" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.RaisingHeight" class="form-label pt">Wysokość podnoszenia</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.RaisingHeight" class="form-input" type="number" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.WorkloadGroup" class="form-label pt">Grupa natężenia pracy</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.WorkloadGroup" class="form-input" disabled />
+        </div>
+    </div>    
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.Weight" class="form-label pt">Masa własna</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.Weight" class="form-input" type="number" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.UDTExpiryDate" class="form-label pt">badania UDT</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.UDTExpiryDate" class="form-input" type="date" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.ElectricalExpiryDate" class="form-label pt">pomiary elektryczne</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.ElectricalExpiryDate" class="form-input" type="date" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="@Model.AdditionalFieldsVm.ResursDate" class="form-label pt">Resurs</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="@Model.AdditionalFieldsVm.ResursDate" class="form-input" type="date" disabled />
+        </div>
+    </div>
+}
+
+

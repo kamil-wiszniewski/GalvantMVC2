@@ -74,18 +74,13 @@ namespace GalvantMVC2.Application.Services
         }
 
         public byte[] GetFileBytesById(int fileId)
-        {
-            // Przykładowe zapytanie LINQ do pobrania pliku z bazy danych na podstawie fileId
-            var file = _equipmentRepo.GetFileByFileId(fileId);                 
-
-            // Sprawdź, czy plik został znaleziony w bazie danych
+        {            
+            var file = _equipmentRepo.GetFileByFileId(fileId);          
+                        
             if (file != null)
-            {
-                // Zwróć bajty pliku
-                return file.FileData; // Załóżmy, że FileData to pole w klasie FileEntity przechowujące bajty pliku
-            }
-
-            // Jeśli plik nie został znaleziony, zwróć null lub odpowiedni komunikat o błędzie
+            {                
+                return file.FileData;
+            }            
             return null;
         }
 
@@ -106,15 +101,12 @@ namespace GalvantMVC2.Application.Services
             return file.CategoryId;
         }
 
-
         public byte[] GetBytesFromIFormFile(IFormFile file)
         {
             using (MemoryStream memoryStream = new MemoryStream())
-            {
-                // Kopiuj dane pliku do MemoryStream
+            {                
                 file.CopyTo(memoryStream);
-
-                // Pobierz tablicę bajtów z MemoryStream
+                
                 byte[] fileBytes = memoryStream.ToArray();
 
                 return fileBytes;

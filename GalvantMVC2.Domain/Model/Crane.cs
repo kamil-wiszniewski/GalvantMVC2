@@ -18,12 +18,7 @@ namespace GalvantMVC2.Domain.Model
         public decimal? LiftingCapacity { get; set; }
         public decimal? RaisingHeight { get; set; }
         public string? WorkloadGroup { get; set; }
-        public decimal? Weight { get; set; }
-
-        //PLIKI
-        //dokumentacja techniczno ruchowa
-        //schemat elektryczny
-        //(inne)
+        public decimal? Weight { get; set; }        
 
         public DateTime? UDTExpiryDate { get; set; }
         public DateTime? ElectricalExpiryDate { get; set; }

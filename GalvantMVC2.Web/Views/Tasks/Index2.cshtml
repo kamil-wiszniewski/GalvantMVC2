@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "Zadania2";
+}
+
+<h1>Zadania</h1>
+
+<div class="box flex-search-task">
+    <div class="flex">
+    <div>
+        <label for="selectedLocation1">Oddział:</label>
+        <select class="form-input" name="selectedLocation1">
+            <option value="">Wszystkie</option>
+            @foreach (var location1 in ViewBag.Location1s)
+            {
+                <option value="@location1">@location1</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="selectedType">Typ urządzenia:</label>
+
+        <select class="form-input" name="selectedType">
+
+            <option value="">Wszystkie</option>
+            @foreach (var type in ViewBag.Types)
+            {
+                <option value="@type.TypeId">@type.TypeName</option>
+            }
+
+        </select>
+    </div>
+    <div>
+        <label for="selectedLocation2">Lokalizacja:</label>
+        <select class="form-input" name="selectedLocation2">
+
+            <option value="">Wszystkie</option>
+            @foreach (var location2 in ViewBag.Location2s)
+            {
+                <option value="@location2.Location2Id">@location2.Location2Name</option>
+            }
+
+        </select>
+    </div>
+    </div>
+
+    <div class="flex">
+    <div>
+        <label>Status:</label>
+        <select class="form-input" name="Status">
+            <option value="">Wszystkie</option>
+            @foreach (var status in ViewBag.Statuses)
+            {
+                <option value="@status.StatusId">@status.StatusName</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label>Tag:</label>
+        <select class="form-input" name="Tag">
+            <option value="">Wszystkie</option>
+            @foreach (var tag in ViewBag.Tags)
+            {
+                <option value="@tag.TagId">@tag.TagName</option>
+            }
+
+        </select>
+    </div>
+        <div>
+            <label>Priorytet:</label>
+            <select class="form-input" name="Priority">
+                <option value="">Wszystkie</option>
+                @foreach (var priority in ViewBag.Priorities)
+                {
+                    <option value="@priority">@priority</option>
+                }
+
+            </select>
+        </div>
+    </div>    
+
+    <div class="flex-ver">
+        <div>
+            <input type="search" id="Search" class="form-input" placeholder="Wpisz tekst" name="searchString"/>
+        </div>
+    </div>
+
+</div>
+
+<br />
+<br />
+
+<h3>Wyniki</h3>
+<table class="table w-100 mt">
+    <thead>
+        <tr>
+            <th>Typ</th>
+            <th>Lokacja</th>
+            <th>Status</th>
+            <th>Tag</th>
+            <th>Temat</th>
+            <th>Data</th>
+            <th>Opcje</th>
+        </tr>
+    </thead>
+    <tbody id="results">
+    </tbody>
+
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            
+            $('select').on('change', function () {                
+                var location1 = $('[name="selectedLocation1"]').val();
+                var type = $('[name="selectedType"]').val();
+                var location2 = $('[name="selectedLocation2"]').val();
+                var status = $('[name="Status"]').val();
+                var tag = $('[name="Tag"]').val();
+                var priority = $('[name="Priority"]').val();               
+
+                console.log(location1);
+                console.log(type);
+                console.log(location2);
+                console.log(tag);
+                console.log(status);
+                console.log(priority);
+                                
+                $.ajax({
+                    url: '/tasks/search',
+                    type: 'POST',
+                    data: {
+                        location1: location1,
+                        type: type,
+                        location2: location2,
+                        status: status,
+                        tag: tag,
+                        priority: priority                        
+                    },
+                    success: function (result) {
+                       
+                        $('#results').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}

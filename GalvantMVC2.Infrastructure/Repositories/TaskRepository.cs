@@ -36,6 +36,12 @@ namespace GalvantMVC2.Infrastructure.Repositories
             return tasks;
         }
 
+        public IQueryable<Status> GetAllStatuses()
+        {
+            var statuses = _context.Statuses;
+            return statuses;
+        }
+
         public int GetTagIdByTagName(string tagName)
         {
             var tagId = _context.Tags.FirstOrDefault(t => t.TagName == tagName);
@@ -46,6 +52,17 @@ namespace GalvantMVC2.Infrastructure.Repositories
         {
             var tag = _context.Tags.FirstOrDefault(t => t.TagId == tagId);
             return tag.TagName;
+        }
+
+        public string GetStatusNameById(int? statusId)
+        {
+            var status = _context.Statuses.FirstOrDefault(t => t.StatusId == statusId);
+            return status.StatusName;
+        }
+
+        public IQueryable<Domain.Model.Task> GetTasksIncludingEquipment()
+        {
+            return _context.Tasks.Include(t => t.Equipment);
         }
     }
 }

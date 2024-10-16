@@ -20,12 +20,15 @@ namespace GalvantMVC2.Domain.Interfaces
 
         int AddHoist(Hoist hoist);
 
+        int AddCrane(Crane crane);
+
+        int AddTank(Tank tank);
+
         IQueryable<Model.Type> GetAllTypes();        
 
         IQueryable<Location2> GetAllLocations2();
 
-        IQueryable<Equipment> GetAllActiveEquipment();
-        //IQueryable<Forklift> GetAllActiveForklifts();
+        IQueryable<Equipment> GetAllActiveEquipment();        
 
         string GetTypeNameById(int typeId);
 
@@ -36,6 +39,10 @@ namespace GalvantMVC2.Domain.Interfaces
         Gantry GetGantryByEquipmentId(int equipmentId);
 
         Hoist GetHoistByEquipmentId(int equipmentId);
+
+        Crane GetCraneByEquipmentId(int equipmentId);
+
+        Tank GetTankByEquipmentId(int equipmentId);
 
         Equipment GetEquipmentById(int equipmentId);
 

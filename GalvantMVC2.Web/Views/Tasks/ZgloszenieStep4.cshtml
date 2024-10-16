@@ -9,7 +9,6 @@
         <div class="box">
             <h3>Zdjęcia</h3>
 
-
             <div class="input-bx">
                 <input type="file" id="upload" accept=".pdf" multiple="multiple" name="name" hidden />
                 <label for="upload" class="uploadlabel">
@@ -18,16 +17,7 @@
                 </label>
 
                 <div id="filewrapper">
-                    <h4 class="uploaded">Wgrane zdjęcia:</h4>
-                    @* <div class="showfilebox">
-                    <div class="left">
-                    <span class="filetype">PDF</span>
-                    <h4>Kamil.pdf</h4>
-                    </div>
-                    <div class="right">
-                    <span><i class="link fa-solid fa-trash" title="Usuń"></i></span>
-                    </div>
-                    </div> *@
+                    <h4 class="uploaded">Wgrane zdjęcia:</h4>                    
                 </div>
                 <div class="centered-button">
                     <button type="button" id="submitBtn1" class="upload-button">Prześlij zdjęcia</button>
@@ -36,6 +26,7 @@
             </div>
         </div>
     </div>
+
     <div class="w-50-report-button">
         <div class="right">
             <button class="button button-green-back">Wyślij</button>
@@ -111,12 +102,11 @@
                     body: formData
                 })
                     .then(response => response.json())
-                    .then(data => {
-                        // Otrzymana odpowiedź od serwera po przesłaniu plików
+                    .then(data => {                        
                         console.log(data);
                     })
                     .catch(error => {
-                        // Obsługa błędu
+                        
                         console.error("Błąd:", error);
                     });
             });

@@ -13,11 +13,8 @@
                 <td style="width:15%">@task.DueDate?.ToString("dd/MM/yyyy")</td>
                 <td style="width:15%">
                     <a href="~/root"><i class="options-link fa-solid fa-magnifying-glass options-span" title="Przeglądaj"></i></a>
-
                     <a href="~/root"> <i class="options-link fa-solid fa-pen" title="Edytuj"></i></a> 
-@*      <a asp-controller="Persons" asp-action="Delete" asp-route-equipmentId="@equipment.EquipmentId"></a> *@
-
-        <a href="~/root"> <i class="options-link fa-solid fa-trash" title="Usuń"></i></a>
+                    <a href="~/root"> <i class="options-link fa-solid fa-trash" title="Usuń"></i></a>
                 </td>
             </tr>
         }

@@ -18,8 +18,7 @@ namespace GalvantMVC2.Domain.Model
         public DateTime? DueDate { get; set; }       
         public PriorityEnum? Priority { get; set; }
         public double? Cost { get; set; }
-        public string? Notes { get; set; }       
-
+        public string? Notes { get; set; }   
         public int? StatusId { get; set; }
         public virtual Status Status { get; set; }
         public int? EquipmentId { get; set; }

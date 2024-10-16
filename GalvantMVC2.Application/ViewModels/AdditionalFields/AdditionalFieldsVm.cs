@@ -17,10 +17,11 @@ namespace GalvantMVC2.Application.ViewModels.AdditionalFields
         public decimal? LiftingCapacity { get; set; }
         public decimal? RaisingHeight { get; set; }
         public string? FuelType { get; set; }
-        public decimal? Weight { get; set; }
-        //Gantry
+        public decimal? Weight { get; set; }        
         public decimal? Range { get; set; }
         public string? WorkloadGroup { get; set; }
+        public decimal? Capacity { get; set; }
+        public decimal? PermissiblePressure { get; set; }
 
         public DateTime? UDTExpiryDate { get; set; }
         public DateTime? ElectricalExpiryDate { get; set; }

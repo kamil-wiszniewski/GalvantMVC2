@@ -21,6 +21,5 @@ namespace GalvantMVC2.Domain.Model
 
         public virtual ICollection<File> Files { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
-
     }
 }

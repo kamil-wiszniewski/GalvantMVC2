@@ -9,7 +9,6 @@
 @section Sidebar {
     <div class="centred">
         <button class="button button-green-back" id="AddEquipmentButton">Dodaj urządzenie</button>
-
     </div>
     }
 
@@ -37,8 +36,6 @@
                 {
                     <option value="@type.TypeId">@type.TypeName</option>
                 }
-
-
             </select>
    </div>
         <div class="flex-1a">
@@ -48,24 +45,14 @@
                 @foreach (var location2 in ViewBag.Location2s)
                 {
                     <option value="@location2.Location2Id">@location2.Location2Name</option>
-                }
-   
+                }   
    </select>
-   </div>
-  
+   </div> 
 
-
-  @* <div class="flex-1">
-   <input type="search" id="Search" class="form-input" placeholder="Search" name="searchString"/>
-  </div> *@
-
-        <div class="flex-1a bottom">
-
-            <button class="button button-blue-back">Szukaj</button>
-   @* <a href="~/persons/index" class="link-hover">Clear all</a> *@
+  <div class="flex-1a bottom">
+            <button class="button button-blue-back">Szukaj</button>   
   </div>
  </div>
-
 
  <table class="table w-100 mt">
         <thead>
@@ -88,18 +75,14 @@
      <td style="width:15%">@equipment.Location3</td>     
      <td style="width:15%">@equipment.InventoryNumber</td>    
      <td style="width:15%">
-                        <a href="~/root"><i class="options-link fa-solid fa-magnifying-glass options-span" title="Przeglądaj"></i></a>
-
-                        @*<a href="~/root"> <i class="options-link fa-solid fa-pen" title="Edytuj"></i></a>*@
-                        <a asp-controller="Equipment" asp-action="EditEquipment" asp-route-equipmentId="@equipment.EquipmentId"><i class="options-link fa-solid fa-pen" title="Edytuj"></i></a>
- 
+                        <a href="~/root"><i class="options-link fa-solid fa-magnifying-glass options-span" title="Przeglądaj"></i></a>                                                
+                        <a asp-controller="Equipment" asp-action="EditEquipment" asp-route-equipmentId="@equipment.EquipmentId"><i class="options-link fa-solid fa-pen" title="Edytuj"></i></a> 
                         <a href="~/root"> <i class="options-link fa-solid fa-trash" title="Usuń"></i></a>
      </td>
     </tr>
    }
    <tr></tr>
   </tbody>
-
  </table>
 </form>
 

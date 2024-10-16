@@ -11,20 +11,14 @@
         <tr>
             <td style="width:10%">@counter</td>
             <td style="width:50%">
-            <a href="/download-file/@file.FileId" target="_blank">@file.FileName</a>
+                <a href="/download-file/@file.FileId" target="_blank">@file.FileName</a>
             </td>
             <td style="width:10%">@file.FileSize MB</td>
             <td style="width:10%">@file.FileExtension</td>            
-            <td style="width:10%">                
-
-                @*<a href="~/root"> <i class="options-link fa-solid fa-pen" title="Edytuj"></i></a>*@
-                @*<a asp-controller="Equipment" asp-action="EditEquipment" asp-route-equipmentId="@equipment.EquipmentId"><i class="options-link fa-solid fa-pen" title="Edytuj"></i></a>*@
-
-                @*<a href="~/root"> <i class="options-link fa-solid fa-trash" title="Usuń"></i></a>*@
-            <a href="javascript:void(0);" class="delete-file upload-link">
-                <i class="options-link fa-solid fa-trash list-trash" title="Usuń" data-fileid="@file.FileId"></i>
-                    </a>
-
+            <td style="width:10%">                              
+                <a href="javascript:void(0);" class="delete-file upload-link">
+                    <i class="options-link fa-solid fa-trash list-trash" title="Usuń" data-fileid="@file.FileId"></i>
+                </a>
             </td>
         </tr>
         counter++;
@@ -33,31 +27,25 @@
 
 @section scripts {
     <script>
-        // Pobierz wszystkie ikonki kosza w tej partial view
+        
         const deleteIcons = document.querySelectorAll(".delete-file");
-
-        // Dodaj nasłuchiwanie na kliknięcie każdej ikonki kosza
+                
         deleteIcons.forEach(deleteIcon => {
             deleteIcon.addEventListener("click", function () {
-                // Pobierz ID pliku z atrybutu danych
+                
                 const fileId = this.getAttribute("data-fileid");
-
-                // Wyświetl potwierdzenie usunięcia w oknie dialogowym
+                                
                 const confirmation = confirm("Czy na pewno chcesz usunąć ten plik?");
-
-                // Sprawdź czy użytkownik potwierdził usunięcie
+                                
                 if (confirmation) {
-                    // Usuń rząd tabeli odpowiadający usuniętemu plikowi
+                    
                     const rowToRemove = document.querySelector(`tr[data-fileid="${fileId}"]`);
                     if (rowToRemove) {
                         rowToRemove.remove();
                     }
-
-                    // Tutaj możesz umieścić kod do wykonania usunięcia pliku, np. wywołanie odpowiedniej funkcji w serwisie
-                    // Użyj wartości fileId do zidentyfikowania, który plik chcesz usunąć
-                    // ...
+                    
                 } else {
-                    // Użytkownik zrezygnował z usunięcia, możesz nie podejmować żadnych działań
+                    
                 }
             });
         });

@@ -15,6 +15,7 @@ namespace GalvantMVC2.Application.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepo;
+
         public EmployeeService(IEmployeeRepository employeeRepo)
         {
             _employeeRepo = employeeRepo;

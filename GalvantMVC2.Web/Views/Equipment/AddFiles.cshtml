@@ -21,10 +21,8 @@
             </select>
         </div>
     </div>
-<div class="w-75 box">
+<div class="w-75 box">   
     
-    
-
     <div class="input-bx">
         
         <input type="file" id="upload" accept=".pdf" multiple="multiple" name="name" hidden />
@@ -57,9 +55,7 @@
         </tr>
     </thead>
     <tbody id="technicalDocsTable">
-
     </tbody>
-
 </table>
 <br />
 
@@ -76,7 +72,6 @@
     </thead>
     <tbody id="electricalSchemasTable">
     </tbody>
-
 </table>
 <br />
 
@@ -93,9 +88,9 @@
     </thead>
     <tbody id="otherFilesTable">
     </tbody>
-
 </table>
 <br />
+
 <div class="centered-button">
     <button class="button button-green-back" onclick="redirectToIndex()">Zakończ</button>
 </div>
@@ -115,7 +110,7 @@
                     let file = files[i];
                     let fileName = file.name;
                     let fileType = fileName.split(".").pop();
-                    let fileURL = URL.createObjectURL(file); // Tworzy tymczasowy adres URL dla pliku
+                    let fileURL = URL.createObjectURL(file); 
 
                     fileshow(fileName, fileType, fileURL, file);
                 }
@@ -132,7 +127,7 @@
 
                 const fileLinkElem = document.createElement("a");
                 fileLinkElem.href = fileURL;
-                fileLinkElem.target = "_blank";  // Otwiera link w nowym oknie/karcie
+                fileLinkElem.target = "_blank";  
                 fileLinkElem.innerHTML = fileName;
                 fileLinkElem.classList.add("upload-link");
 
@@ -162,11 +157,11 @@
                     alert("Proszę wybrać jakieś pliki");
                     return;
                 }
-                // Pobierz id wybranej kategorii
+                
                 const categoryId = document.getElementById("CategoryId").value;
                 if (!categoryId) {
                     alert("Proszę wybrać kategorię przed przesłaniem plików");
-                    // Przerwij przetwarzanie, jeśli nie wybrano kategorii
+                    
                     return;
                 }
 
@@ -174,8 +169,7 @@
                 selectedFiles.forEach(file => {
                     formData.append("files", file);
                 });
-
-                // Dodaj id kategorii do formularza
+                
                 formData.append("categoryId", categoryId);
 
                 const equipmentId = document.getElementById("equipmentId").value;
@@ -186,28 +180,22 @@
                     body: formData
                 })
                     .then(response => response.json())
-                    .then(data => {
-                        // Otrzymana odpowiedź od serwera po przesłaniu plików
+                    .then(data => {                        
                         console.log(data);
-
-                        // Usuń wszystkie divy z klasą showfilebox
+                        
                         const showfileboxes = document.querySelectorAll(".showfilebox");
                         showfileboxes.forEach(box => {
                             box.remove();
                         });
-
-                        // Wyświetl komunikat/alert o sukcesie
+                        
                         alert("Pliki zostały przesłane pomyślnie!");
-
-                        // Oczyść pamięć przeglądarki związana z obiektami URL plików
+                        
                         selectedFiles.forEach(file => {
                             URL.revokeObjectURL(file);
                         });
-
-                        // Wyczyść wybrane pliki
+                        
                         selectedFiles = [];
-
-                        // Oczyść pole input
+                        
                         input.value = null;
 
                         fetch(`/add-files/GetFilesByCategory?categoryId=${categoryId}&equipmentId=${equipmentId}`, {
@@ -215,25 +203,23 @@
                         })
                             .then(response => response.text())
                             .then(data => {                                
-                                // Zaktualizuj tylko odpowiednią tabelę na stronie
+                                
                                 switch (parseInt(categoryId)) {
-                                    case 1: // Techniczno-ruchowa
+                                    case 1: 
                                         document.getElementById("technicalDocsTable").innerHTML = data;
                                         break;
-                                    case 2: // Schemat elektryczny
+                                    case 2: 
                                         document.getElementById("electricalSchemasTable").innerHTML = data;
                                         break;
-                                    case 3: // Inne
+                                    case 3: 
                                         document.getElementById("otherFilesTable").innerHTML = data;
                                         break;
                                     default:
                                         break;
                                 }
                             })
-
                     })
-                    .catch(error => {
-                        // Obsługa błędu
+                    .catch(error => {                        
                         console.error("Błąd:", error);
                     });
             });
@@ -258,34 +244,22 @@
                                 })
                                     .then(response => response.text())
                                     .then(data => {
-                                        // Zaktualizuj tylko odpowiednią tabelę na stronie
+                                        
                                         switch (parseInt(categoryId)) {
-                                            case 1: // Techniczno-ruchowa
+                                            case 1: 
                                                 document.getElementById("technicalDocsTable").innerHTML = data;
                                                 break;
-                                            case 2: // Schemat elektryczny
+                                            case 2: 
                                                 document.getElementById("electricalSchemasTable").innerHTML = data;
                                                 break;
-                                            case 3: // Inne
+                                            case 3: 
                                                 document.getElementById("otherFilesTable").innerHTML = data;
                                                 break;
                                             default:
                                                 break;
                                         }
                                     })
-
-
-                                /*const iconToRemove = document.querySelector(`i[data-fileid="${fileId}"]`);
-
-                                if (iconToRemove) {
-                                    aToRemove = iconToRemove.parentElement;
-                                    tdToRemove = aToRemove.parentElement;
-                                    trToRemove = tdToRemove.parentElement;
-                                    iconToRemove.remove();
-                                    aToRemove.remove();
-                                    tdToRemove.remove();
-                                    trToRemove.remove();
-                                }*/
+                              
                             } else {
                                 alert("Wystąpił problem podczas usuwania pliku.");
                             }
@@ -297,11 +271,9 @@
             }
         });
 
-        function redirectToIndex() {
-            // Przekieruj użytkownika do akcji Index
-            window.location.href = '/equipment'; // Zastąp 'ControllerName' nazwą Twojego kontrolera
+        function redirectToIndex() {            
+            window.location.href = '/equipment'; 
         }
-
 
     </script>
 }

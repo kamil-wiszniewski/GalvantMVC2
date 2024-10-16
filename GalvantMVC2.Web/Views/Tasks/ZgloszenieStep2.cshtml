@@ -17,7 +17,6 @@
                         <option value="Wybierz oddział">Wybierz oddział</option>
                         <option value="Czarna Białostocka">Czarna Białostocka</option>
                         <option value="Wyszków">Wyszków</option>
-
                     </select>
                 </div>
             </div>
@@ -51,10 +50,10 @@
                     </select>
                 </div>
             </div>
-
         </div>
     </div>    
 </form>
+
 <div class="w-50-report-button">
     <div class="right">
         <button id="submitBtn2" class="button button-blue-back">Dalej</button>
@@ -65,26 +64,21 @@
     <script>
         $('#firstDropdown').change(function () {
             var firstDropdownVal = $(this).val();
-
-            // Wywołaj akcję kontrolera, aby pobrać opcje dla drugiej listy
+            
             $.get('/add-task/GetSecondDropdownOptions', { firstDropdownVal: firstDropdownVal }, function (data) {
-                // Wyczyść drugą listę
-                //$('#secondDropdown').empty();
-
+                
                 $('#secondDropdown').empty().append($('<option>', {
                     value: '',
                     text: 'Wybierz lokalizację'
                 }));
-
-                // Dodaj nowe opcje do drugiej listy
+                
                 $.each(data, function (index, item) {
                     $('#secondDropdown').append($('<option>', {
                         value: item.location2Id,
                         text: item.location2Name
                     }));
                 });
-
-                // Wyczyść trzecią listę po zmianie pierwszej listy
+                
                 $('#thirdDropdown').empty();
                 $('#fourthDropdown').empty();
             });
@@ -93,18 +87,14 @@
         $('#secondDropdown').change(function () {
             var firstDropdownVal = $('#firstDropdown').val();
             var secondDropdownVal = $(this).val();
-
-            // Wywołaj akcję kontrolera, aby pobrać opcje dla drugiej listy
+            
             $.get('/add-task/GetThirdDropdownOptions', { firstDropdownVal: firstDropdownVal, secondDropdownVal: secondDropdownVal }, function (data) {
-                // Wyczyść trzecią listę
-                //$('#thirdDropdown').empty();
-
+                
                 $('#thirdDropdown').empty().append($('<option>', {
                     value: '',
                     text: 'Wybierz rodzaj'
                 }));
-
-                // Dodaj nowe opcje do trzeciej listy
+                
                 $.each(data, function (index, item) {
                     $('#thirdDropdown').append($('<option>', {
                         value: item.typeId,
@@ -120,18 +110,14 @@
             var firstDropdownVal = $('#firstDropdown').val();
             var secondDropdownVal = $('#secondDropdown').val();
             var thirdDropdownVal = $(this).val();
-
-            // Wywołaj akcję kontrolera, aby pobrać opcje dla czwartej listy
+                        
             $.get('/add-task/GetFourthDropdownOptions', { firstDropdownVal: firstDropdownVal, secondDropdownVal: secondDropdownVal, thirdDropdownVal: thirdDropdownVal }, function (data) {
-                // Wyczyść czwartą listę
-                //$('#fourthDropdown').empty();
-
+                
                 $('#fourthDropdown').empty().append($('<option>', {
                     value: '',
                     text: 'Wybierz urządzenie'
                 }));
-
-                // Dodaj nowe opcje do czwartej listy
+                
                 $.each(data, function (index, item) {
                     $('#fourthDropdown').append($('<option>', {
                         value: item.equipmentId,
@@ -145,9 +131,5 @@
             window.location.href = "/zgloszenie3";
         });
 
-
-
     </script>
-
-
 }

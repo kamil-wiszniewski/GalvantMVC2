@@ -1,0 +1,76 @@
+﻿@using GalvantMVC2.Application.ViewModels.Equipment
+
+@model EquipmentDetailsVm
+
+@{
+    ViewBag.Title = "Szczegóły urządzenia";
+}
+
+<h2>Equipment Details</h2>
+
+    <div class="w-50 float-left">
+
+        <input type="hidden" asp-for="EquipmentDetailsSharedVm.EquipmentId" />
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="EquipmentDetailsSharedVm.Location1" class="form-label pt">Oddział</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="EquipmentDetailsSharedVm.Location1" class="form-input" disabled />
+        </div>
+    </div>
+
+    <div class="form-field flex">
+        <div class="w-25">
+            <label asp-for="EquipmentDetailsSharedVm.TypeName" class="form-label pt">Rodzaj</label>
+        </div>
+        <div class="flex-1">
+            <input asp-for="EquipmentDetailsSharedVm.TypeName" class="form-input" disabled />
+        </div>
+    </div>        
+
+        <div class="form-field flex">
+            <div class="w-25">
+            <label asp-for="EquipmentDetailsSharedVm.Location2Name" class="form-label pt">Lokalizacja</label>
+            </div>
+            <div class="flex-1">
+            <input asp-for="EquipmentDetailsSharedVm.Location2Name" class="form-input" disabled />
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+            <label asp-for="EquipmentDetailsSharedVm.Location3" class="form-label pt">Miejsce</label>
+            </div>
+            <div class="flex-1">
+            <input asp-for="EquipmentDetailsSharedVm.Location3" class="form-input" disabled />
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+            <label asp-for="EquipmentDetailsSharedVm.Notes" class="form-label pt">Uwagi</label>
+            </div>
+            <div class="flex-1">
+            <textarea asp-for="EquipmentDetailsSharedVm.Notes" class="form-input" disabled></textarea>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+            </div>
+            <div class="flex-1">
+                <button class="button button-green-back">Wróć</button>
+            <button class="button button-blue-back">Pliki</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="w-50 float-left">
+        <partial name="_AdditionalFieldsDetails"></partial>
+    </div>
+
+
+
+

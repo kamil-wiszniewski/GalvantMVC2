@@ -32,73 +32,117 @@ namespace GalvantMVC2.Application.Services
             };
             _equipmentRepo.AddEquipment(equipment);
 
-            if (model.TypeId == 1)
+            switch (model.TypeId)
             {
-                var forklift = new Forklift
-                {
-                    EquipmentId = equipment.EquipmentId,
-                    Type = additionalFieldsModell.Type,
-                    Producer = additionalFieldsModell.Producer,
-                    ProductionYear = additionalFieldsModell.ProductionYear,
-                    FactoryNumber = additionalFieldsModell.FactoryNumber,
-                    UDTNumber = additionalFieldsModell.UDTNumber,
-                    InventoryNumber = additionalFieldsModell.InventoryNumber,
-                    LiftingCapacity = additionalFieldsModell.LiftingCapacity,
-                    RaisingHeight = additionalFieldsModell.RaisingHeight,
-                    FuelType = additionalFieldsModell.FuelType,
-                    Weight = additionalFieldsModell.Weight,
-                    UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
-                    ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
-                    ResursDate = additionalFieldsModell.ResursDate
-                };
-                _equipmentRepo.AddForklift(forklift);
-            }
+                case 1:
+                    var forklift = new Forklift
+                    {
+                        EquipmentId = equipment.EquipmentId,
+                        Type = additionalFieldsModell.Type,
+                        Producer = additionalFieldsModell.Producer,
+                        ProductionYear = additionalFieldsModell.ProductionYear,
+                        FactoryNumber = additionalFieldsModell.FactoryNumber,
+                        UDTNumber = additionalFieldsModell.UDTNumber,
+                        InventoryNumber = additionalFieldsModell.InventoryNumber,
+                        LiftingCapacity = additionalFieldsModell.LiftingCapacity,
+                        RaisingHeight = additionalFieldsModell.RaisingHeight,
+                        FuelType = additionalFieldsModell.FuelType,
+                        Weight = additionalFieldsModell.Weight,
+                        UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
+                        ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
+                        ResursDate = additionalFieldsModell.ResursDate
+                    };
+                    _equipmentRepo.AddForklift(forklift);
 
-            if (model.TypeId == 2)
-            {
-                var gantry = new Gantry
-                {
-                    EquipmentId = equipment.EquipmentId,
-                    Type = additionalFieldsModell.Type,
-                    Producer = additionalFieldsModell.Producer,
-                    ProductionYear = additionalFieldsModell.ProductionYear,
-                    FactoryNumber = additionalFieldsModell.FactoryNumber,
-                    UDTNumber = additionalFieldsModell.UDTNumber,
-                    InventoryNumber = additionalFieldsModell.InventoryNumber,
-                    LiftingCapacity = additionalFieldsModell.LiftingCapacity,
-                    Range = additionalFieldsModell.Range,
-                    RaisingHeight = additionalFieldsModell.RaisingHeight,
-                    WorkloadGroup = additionalFieldsModell.WorkloadGroup,
-                    Weight = additionalFieldsModell.Weight,
-                    UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
-                    ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
-                    ResursDate = additionalFieldsModell.ResursDate
-                };
-                _equipmentRepo.AddGantry(gantry);
-            }
+                    break;
 
-            if (model.TypeId == 3)
-            {
-                var hoist = new Hoist
-                {
-                    EquipmentId = equipment.EquipmentId,
-                    Type = additionalFieldsModell.Type,
-                    Producer = additionalFieldsModell.Producer,
-                    ProductionYear = additionalFieldsModell.ProductionYear,
-                    FactoryNumber = additionalFieldsModell.FactoryNumber,
-                    UDTNumber = additionalFieldsModell.UDTNumber,
-                    InventoryNumber = additionalFieldsModell.InventoryNumber,
-                    LiftingCapacity = additionalFieldsModell.LiftingCapacity,                    
-                    RaisingHeight = additionalFieldsModell.RaisingHeight,
-                    WorkloadGroup = additionalFieldsModell.WorkloadGroup,
-                    Weight = additionalFieldsModell.Weight,
-                    UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
-                    ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
-                    ResursDate = additionalFieldsModell.ResursDate
-                };
-                _equipmentRepo.AddHoist(hoist);
-            }
+                case 2:
+                    var gantry = new Gantry
+                    {
+                        EquipmentId = equipment.EquipmentId,
+                        Type = additionalFieldsModell.Type,
+                        Producer = additionalFieldsModell.Producer,
+                        ProductionYear = additionalFieldsModell.ProductionYear,
+                        FactoryNumber = additionalFieldsModell.FactoryNumber,
+                        UDTNumber = additionalFieldsModell.UDTNumber,
+                        InventoryNumber = additionalFieldsModell.InventoryNumber,
+                        LiftingCapacity = additionalFieldsModell.LiftingCapacity,
+                        Range = additionalFieldsModell.Range,
+                        RaisingHeight = additionalFieldsModell.RaisingHeight,
+                        WorkloadGroup = additionalFieldsModell.WorkloadGroup,
+                        Weight = additionalFieldsModell.Weight,
+                        UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
+                        ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
+                        ResursDate = additionalFieldsModell.ResursDate
+                    };
+                    _equipmentRepo.AddGantry(gantry);
 
+                    break;
+
+                case 3:
+                    var hoist = new Hoist
+                    {
+                        EquipmentId = equipment.EquipmentId,
+                        Type = additionalFieldsModell.Type,
+                        Producer = additionalFieldsModell.Producer,
+                        ProductionYear = additionalFieldsModell.ProductionYear,
+                        FactoryNumber = additionalFieldsModell.FactoryNumber,
+                        UDTNumber = additionalFieldsModell.UDTNumber,
+                        InventoryNumber = additionalFieldsModell.InventoryNumber,
+                        LiftingCapacity = additionalFieldsModell.LiftingCapacity,
+                        RaisingHeight = additionalFieldsModell.RaisingHeight,
+                        WorkloadGroup = additionalFieldsModell.WorkloadGroup,
+                        Weight = additionalFieldsModell.Weight,
+                        UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
+                        ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
+                        ResursDate = additionalFieldsModell.ResursDate
+                    };
+                    _equipmentRepo.AddHoist(hoist);
+
+                    break;
+
+                case 4:
+                    var crane = new Crane
+                    {
+                        EquipmentId = equipment.EquipmentId,
+                        Type = additionalFieldsModell.Type,
+                        Producer = additionalFieldsModell.Producer,
+                        ProductionYear = additionalFieldsModell.ProductionYear,
+                        FactoryNumber = additionalFieldsModell.FactoryNumber,
+                        UDTNumber = additionalFieldsModell.UDTNumber,
+                        InventoryNumber = additionalFieldsModell.InventoryNumber,
+                        LiftingCapacity = additionalFieldsModell.LiftingCapacity,
+                        RaisingHeight = additionalFieldsModell.RaisingHeight,
+                        WorkloadGroup = additionalFieldsModell.WorkloadGroup,
+                        Weight = additionalFieldsModell.Weight,
+                        UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
+                        ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
+                        ResursDate = additionalFieldsModell.ResursDate
+                    };
+                    _equipmentRepo.AddCrane(crane);
+
+                    break;
+
+                case 5:
+                    var tank = new Tank
+                    {
+                        EquipmentId = equipment.EquipmentId,
+                        Type = additionalFieldsModell.Type,
+                        Producer = additionalFieldsModell.Producer,
+                        ProductionYear = additionalFieldsModell.ProductionYear,
+                        FactoryNumber = additionalFieldsModell.FactoryNumber,
+                        UDTNumber = additionalFieldsModell.UDTNumber,
+                        InventoryNumber = additionalFieldsModell.InventoryNumber,
+                        Capacity = additionalFieldsModell.Capacity,
+                        PermissiblePressure = additionalFieldsModell.PermissiblePressure,
+                        UDTExpiryDate = additionalFieldsModell.UDTExpiryDate,
+                        ElectricalExpiryDate = additionalFieldsModell.ElectricalExpiryDate,
+                        ResursDate = additionalFieldsModell.ResursDate
+                    };
+                    _equipmentRepo.AddTank(tank);
+
+                    break;
+            }
             return equipment.EquipmentId;
         }        
 
@@ -137,24 +181,38 @@ namespace GalvantMVC2.Application.Services
                     Location3 = item.Location3,
                 };
 
-                if (item.TypeId == 1)
+                switch (item.TypeId)
                 {
-                    var forklift = _equipmentRepo.GetForkliftByEquipmentId(item.EquipmentId);
-                    equipVm.InventoryNumber = forklift.InventoryNumber;
-                }
+                    case 1:
+                        var forklift = _equipmentRepo.GetForkliftByEquipmentId(item.EquipmentId);
+                        equipVm.InventoryNumber = forklift.InventoryNumber;
 
-                if (item.TypeId == 2)
-                {
-                    var gantry = _equipmentRepo.GetGantryByEquipmentId(item.EquipmentId);
-                    equipVm.InventoryNumber = gantry.InventoryNumber;
-                }
+                    break;
 
-                if (item.TypeId == 3)
-                {
-                    var hoist = _equipmentRepo.GetHoistByEquipmentId(item.EquipmentId);
-                    equipVm.InventoryNumber = hoist.InventoryNumber;
-                }
+                    case 2:
+                        var gantry = _equipmentRepo.GetGantryByEquipmentId(item.EquipmentId);
+                        equipVm.InventoryNumber = gantry.InventoryNumber;
 
+                    break;
+
+                    case 3:
+                        var hoist = _equipmentRepo.GetHoistByEquipmentId(item.EquipmentId);
+                        equipVm.InventoryNumber = hoist.InventoryNumber;
+
+                    break;
+
+                    case 4:
+                        var crane = _equipmentRepo.GetCraneByEquipmentId(item.EquipmentId);
+                        equipVm.InventoryNumber = crane.InventoryNumber;
+
+                    break;
+
+                    case 5:
+                        var tank = _equipmentRepo.GetTankByEquipmentId(item.EquipmentId);
+                        equipVm.InventoryNumber = tank.InventoryNumber;
+
+                    break;
+                }
                 result.Add(equipVm);
             }            
             return result;
@@ -168,6 +226,10 @@ namespace GalvantMVC2.Application.Services
                 return "_GantryAdditionalFields";
             if (typeId == 3)
                 return "_HoistAdditionalFields";
+            if (typeId == 4)
+                return "_CraneAdditionalFields";
+            if (typeId == 5)
+                return "_TankAdditionalFields";
 
             return null;
         }        
@@ -193,31 +255,69 @@ namespace GalvantMVC2.Application.Services
         {
             var equipment = _equipmentRepo.GetEquipmentById(id);
 
-            if (equipment.TypeId == 1)
+            switch (equipment.TypeId)
             {
-                var forklift = _equipmentRepo.GetForkliftByEquipmentId(id);
-                var additionalFieldsVm = new AdditionalFieldsVm()
-                {                    
-                    Type = forklift.Type,
-                    Producer = forklift.Producer,
-                    ProductionYear = forklift.ProductionYear,
-                    FactoryNumber = forklift.FactoryNumber,
-                    UDTNumber = forklift.UDTNumber,
-                    InventoryNumber = forklift.InventoryNumber,
-                    LiftingCapacity = forklift.LiftingCapacity,
-                    RaisingHeight = forklift.RaisingHeight,
-                    FuelType = forklift.FuelType,
-                    Weight = forklift.Weight,
-                    UDTExpiryDate = forklift.UDTExpiryDate,
-                    ElectricalExpiryDate = forklift.ElectricalExpiryDate,
-                    ResursDate = forklift.ResursDate
-                };
-                return additionalFieldsVm;
-            }
-            else
-            {
-                throw new NotSupportedException("Typ wyposażenia nie jest obsługiwany.");
+                case 1:
+                    var forklift = _equipmentRepo.GetForkliftByEquipmentId(id);
+                    var forkliftAdditionalFieldsVm = new AdditionalFieldsVm()
+                    {
+                        Type = forklift.Type,
+                        Producer = forklift.Producer,
+                        ProductionYear = forklift.ProductionYear,
+                        FactoryNumber = forklift.FactoryNumber,
+                        UDTNumber = forklift.UDTNumber,
+                        InventoryNumber = forklift.InventoryNumber,
+                        LiftingCapacity = forklift.LiftingCapacity,
+                        RaisingHeight = forklift.RaisingHeight,
+                        FuelType = forklift.FuelType,
+                        Weight = forklift.Weight,
+                        UDTExpiryDate = forklift.UDTExpiryDate,
+                        ElectricalExpiryDate = forklift.ElectricalExpiryDate,
+                        ResursDate = forklift.ResursDate
+                    };
+                    return forkliftAdditionalFieldsVm;
+
+                case 2:
+                    var gantry = _equipmentRepo.GetGantryByEquipmentId(id);
+                    var gantryAdditionalFieldsVm = new AdditionalFieldsVm()
+                    {
+                        Type = gantry.Type,
+                        Producer = gantry.Producer,
+                        ProductionYear = gantry.ProductionYear,
+                        FactoryNumber = gantry.FactoryNumber,
+                        UDTNumber = gantry.UDTNumber,
+                        InventoryNumber = gantry.InventoryNumber,
+                        LiftingCapacity = gantry.LiftingCapacity,
+                        Range = gantry.Range,
+                        RaisingHeight = gantry.RaisingHeight,
+                        WorkloadGroup = gantry.WorkloadGroup,
+                        Weight = gantry.Weight,
+                        UDTExpiryDate = gantry.UDTExpiryDate,
+                        ElectricalExpiryDate = gantry.ElectricalExpiryDate,
+                        ResursDate = gantry.ResursDate
+                    };
+                    return gantryAdditionalFieldsVm;
+
+                default:                    
+                    throw new InvalidOperationException("Nieznany typ urządzenia");
             }
         }
+
+        public EquipmentDetailsSharedVm GetEquipmentSharedFieldsForDetails(int equipmentId)
+        {
+            var equipment = _equipmentRepo.GetEquipmentById(equipmentId);
+
+            var equipmentDetailsVm = new EquipmentDetailsSharedVm
+            {
+                EquipmentId = equipment.EquipmentId,
+                Location1 = equipment.Location1,
+                Location2Name = _equipmentRepo.GetLocation2NameById(equipmentId),
+                Location3 = equipment.Location3,
+                TypeId= equipment.TypeId,
+                TypeName = _equipmentRepo.GetTypeNameById(equipment.TypeId),
+                Notes = equipment.Notes
+            };
+            return equipmentDetailsVm;
+        }        
     }
 }

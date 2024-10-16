@@ -2,7 +2,7 @@
     ViewBag.Title = "Add Equipment";
 }
 
-    <h1>Dodaj urządzenie</h1>
+<h1>Dodaj urządzenie</h1>
 
 <form action="~/add-equipment" method="post" enctype='multipart/form-data'>
 <div class="w-50 float-left">   
@@ -64,53 +64,7 @@
             <div class="flex-1">
                 <textarea class="form-input" id="Notes" name="Notes"></textarea>
             </div>
-        </div>
-        
-        <div class="box">
-            <h3>Pliki</h3>
-            
-            
-            <div class="input-bx">
-                <h4 class="upload-area-title">Dokumentacja techniczno ruchowa</h4>
-                <input type="file" id="upload" accept=".pdf" multiple="multiple" name="name" hidden />
-                <label for="upload" class="uploadlabel">
-                    <span><i class="fa-solid fa-cloud-upload"></i></span>
-                        <p>Kliknij aby wgrać pliki</p>
-                </label>
-                
-                <div id="filewrapper">
-                    <h4 class="uploaded">Wgrane pliki:</h4>
-                    @* <div class="showfilebox">
-                        <div class="left">
-                            <span class="filetype">PDF</span>
-                            <h4>Kamil.pdf</h4>
-                        </div>
-                        <div class="right"> 
-                            <span><i class="link fa-solid fa-trash" title="Usuń"></i></span>
-                        </div>
-                    </div> *@
-                </div>
-                <div class="centered-button">
-                    <button type="button" id="submitBtn1" class="upload-button">Prześlij pliki</button>
-                </div>
-                
-            </div>
-           
-
-            <div class="flex-1">
-                <h4>Schemat elektryczny</h4>
-                <input type="file" multiple="multiple" name="name" />
-                <input type="submit" />
-            </div>
-
-            <div class="flex-1">
-                <h4>Inne</h4>
-               
-                <input type="file" multiple="multiple" name="name" />               
-                <input type="submit" />
-                
-            </div>
-        </div>
+        </div>        
 
         <div class="form-field flex">
             <div class="w-25">                
@@ -118,33 +72,26 @@
             <div class="flex-1">
                 <button class="button button-green-back">Dodaj</button>
             </div>
-        </div>
-   
+        </div>   
 </div>
 
-<div class="w-50 float-left" id="additionalFieldsContainer">
-        
-</div>
+<div class="w-50 float-left" id="additionalFieldsContainer"></div>
+
 </form>
-
-
 
 @section scripts {
     <script>
-        // Dodaj event listener do zmiany wartości w select
+        
         document.getElementById("TypeId").addEventListener("change", function () {
             var selectedTypeId = this.value;
-
-            // Wykonaj żądanie AJAX, aby pobrać część widoku
+            
             if (selectedTypeId) {
                 fetch("/add-equipment/AdditionalFields?selectedTypeId=" + selectedTypeId)
                     .then(response => response.text())
-                    .then(data => {
-                        // Wstrzyknij pobraną część widoku do kontenera
+                    .then(data => {                        
                         document.getElementById("additionalFieldsContainer").innerHTML = data;
                     });
-            } else {
-                // Wyczyść kontener, jeśli nie wybrano rodzaju
+            } else {                
                 document.getElementById("additionalFieldsContainer").innerHTML = "";
             }
         });
@@ -215,18 +162,14 @@
                     body: formData
                 })
                     .then(response => response.json())
-                    .then(data => {
-                        // Otrzymana odpowiedź od serwera po przesłaniu plików
+                    .then(data => {                        
                         console.log(data);
                     })
-                    .catch(error => {
-                        // Obsługa błędu
+                    .catch(error => {                        
                         console.error("Błąd:", error);
                     });
             });
-        });   
-       
-    
+        });    
 
     </script>
 }

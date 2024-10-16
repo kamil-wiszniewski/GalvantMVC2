@@ -10,7 +10,6 @@ h4{
 
 }
 
-
 *
 {
     margin: 0px;
@@ -176,7 +175,6 @@ h4{
     margin-bottom: 10px;
 }
 
-
 .ml
 {
     margin-left: 10px;
@@ -197,7 +195,6 @@ h4{
     padding-bottom: 10px;
 }
 
-
 .pl
 {
     padding-left: 10px;
@@ -207,7 +204,6 @@ h4{
 {
     padding-right: 10px;
 }
-
 
 .grey-back
 {
@@ -263,7 +259,6 @@ h4{
 {
     background-color: #9ad3f7;
 }
-
 
 .list-container
 {
@@ -321,10 +316,7 @@ h4{
 
 .flex
 {
-    display: flex;
-    /*flex-wrap: wrap;
-    align-content: stretch;
-    align-items: stretch;*/
+    display: flex;    
 }
 
 .flex > div
@@ -337,9 +329,9 @@ h4{
     
 }
 
-    .flex2 > div {
+.flex2 > div {
         padding: 15px;
-    }
+}
 
 .flex-1a 
 {
@@ -441,7 +433,6 @@ a.link-hover:hover
     background-color: #96370f;
 }
 
-
 .form-input
 {
     padding: 8px 10px;
@@ -519,7 +510,6 @@ a.tags-links:visited {
     color: #3A81BD;
 }
 
-
 @media screen and (min-width: 1000px)
 {
     .navbar-brand
@@ -541,7 +531,6 @@ a.tags-links:visited {
     }
 }
 
-/*Files Upload*/
 .upload-area-title{
     text-align: center;
     margin-bottom: 20px;
@@ -589,12 +578,11 @@ a.tags-links:visited {
 
 .showfilebox .left{
     display: flex;
-    align-items: center;
-    /*flex-wrap: wrap;*/
+    align-items: center;    
     gap: 10px;
 }
 
-    .showfilebox .filetype {
+.showfilebox .filetype {
         background: #515151;
         color: #fff;
         padding: 3px 12px;
@@ -602,14 +590,14 @@ a.tags-links:visited {
         text-transform: capitalize;
         font-weight: 700;
         border-radius: 3px;
-    }
+}
 
-    .showfilebox .left h4 {
+.showfilebox .left h4 {
         font-weight: 600;
         font-size: 18px;
         color: black;
         margin: 0;
-    }
+}
 
 .right span {
     color: #3A81BD;
@@ -649,10 +637,10 @@ a.upload-link:link, a.upload-link:visited{
     background-color: #515151;
 }
 
-    .upload-button:hover {
+.upload-button:hover {
         cursor: pointer;
         background-color: #282828;
-    }
+}
 
 .button-grey-back {
     color: #ffffff;
@@ -669,7 +657,6 @@ a.upload-link:link, a.upload-link:visited{
     font-weight: bold;
 }
 
-/*REPORT*/
 .w-50-report {
     display: flex;   
     width: 50%; /* Dzieli dostępną szerokość na 50% */
@@ -705,9 +692,7 @@ a.upload-link:link, a.upload-link:visited{
 
 .right {
     display: flex;
-    justify-content: flex-end;
-    /*width: 100%;*/
-    
+    justify-content: flex-end;    
 }
 
 .w-50-report-button {
@@ -716,12 +701,9 @@ a.upload-link:link, a.upload-link:visited{
     margin-top: 15px;
 }
 
-
-
 .w-75-flex {
     width:75%;
-    display: flex;
-    /*justify-content: center;*/
+    display: flex;    
 }
 
 .flex-ver {
@@ -729,6 +711,17 @@ a.upload-link:link, a.upload-link:visited{
     flex-direction: column;
     align-items: center;
 }
+
+.flex-search-task {
+    display: flex;
+    flex-direction: column;    
+}
+
+.reg {
+    font-size: 15px;
+    vertical-align: top;
+}
+
 
 
 

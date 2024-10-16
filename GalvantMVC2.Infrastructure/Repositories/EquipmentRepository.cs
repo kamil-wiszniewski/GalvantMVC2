@@ -52,6 +52,20 @@ namespace GalvantMVC2.Infrastructure.Repositories
             return hoist.HoistId;
         }
 
+        public int AddCrane(Crane crane)
+        {
+            _context.Cranes.Add(crane);
+            _context.SaveChanges();
+            return crane.CraneId;
+        }
+
+        public int AddTank(Tank tank)
+        {
+            _context.Tanks.Add(tank);
+            _context.SaveChanges(); 
+            return tank.TankId;
+        }
+
         public IQueryable<Location2> GetAllLocations2()
         {
             var locations = _context.Location2s;
@@ -68,13 +82,7 @@ namespace GalvantMVC2.Infrastructure.Repositories
         {
             var equipment = _context.Equipment;
             return equipment;
-        }
-
-        /*public IQueryable<Forklift> GetAllActiveForklifts()
-        {
-            var forklifts = _context.Forklifts;
-            return forklifts;   
-        }*/
+        }        
 
         public string GetTypeNameById(int typeId)
         {
@@ -104,6 +112,18 @@ namespace GalvantMVC2.Infrastructure.Repositories
         {
             var hoist = _context.Hoists.FirstOrDefault(n => n.EquipmentId == equipmentId);
             return hoist;
+        }
+
+        public Crane GetCraneByEquipmentId(int equipmentId)
+        {
+            var crane = _context.Cranes.FirstOrDefault(c => c.EquipmentId == equipmentId);
+            return crane;
+        }
+
+        public Tank GetTankByEquipmentId(int equipmentId)
+        {
+            var tank = _context.Tanks.FirstOrDefault(t => t.EquipmentId == equipmentId);
+            return tank;
         }
 
         public Equipment GetEquipmentById(int equipmentId)

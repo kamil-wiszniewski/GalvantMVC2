@@ -16,12 +16,7 @@ namespace GalvantMVC2.Domain.Model
         public string? UDTNumber { get; set; }
         public string? InventoryNumber { get; set; }
         public decimal? Capacity { get; set; }
-        public decimal? PermissiblePressure { get; set; }
-
-        //PLIKI
-        //dokumentacja techniczno ruchowa
-        //schemat elektryczny
-        //(inne)
+        public decimal? PermissiblePressure { get; set; }        
 
         public DateTime? UDTExpiryDate { get; set; }
         public DateTime? ElectricalExpiryDate { get; set; }

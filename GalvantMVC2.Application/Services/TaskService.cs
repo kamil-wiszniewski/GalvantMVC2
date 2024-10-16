@@ -1,9 +1,11 @@
 ﻿using GalvantMVC2.Application.Interfaces;
 using GalvantMVC2.Application.ViewModels.Equipment;
 using GalvantMVC2.Application.ViewModels.Tasks;
+using GalvantMVC2.Domain.Enums;
 using GalvantMVC2.Domain.Interfaces;
 using GalvantMVC2.Domain.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +27,17 @@ namespace GalvantMVC2.Application.Services
         public int AddTask(AddTaskVm model)
         {
             var task = new Domain.Model.Task
-            {
+            {                
                 CreatedAt = DateTime.Now,
-                TagId = model.TagId,
-                Description = model.Description,               
-                DueDate = model.DueDate
+                Title = model.Title,
+                Description = model.Description,
+                DueDate = model.DueDate,
+                Priority = model.Priority,                 
+                Cost = model.Cost,
+                Notes = model.Notes,
+                StatusId = model.StatusId,
+                EquipmentId = model.EquipmentId,
+                TagId = model.TagId
             };
             _taskRepo.AddTask(task);
 
@@ -111,17 +119,29 @@ namespace GalvantMVC2.Application.Services
 
             foreach (var e in equipment)
             {
-                if (e.TypeId == 1)
+                EquipmentForCascadeSearchVm equ = new()
                 {
-                    Forklift forklift = _equipmentRepo.GetForkliftByEquipmentId(e.EquipmentId);
+                    EquipmentId = e.EquipmentId
+                };
 
-                    EquipmentForCascadeSearchVm equ = new EquipmentForCascadeSearchVm
-                    {
-                        EquipmentId = e.EquipmentId,
-                        EquipmentCascade = "Nr inwentarzowy: " + forklift.InventoryNumber 
-                    };
-                    data.Add(equ);
-                }               
+                switch (e.TypeId)
+                {
+                    case 1:
+                        Forklift forklift = _equipmentRepo.GetForkliftByEquipmentId(e.EquipmentId);
+                        equ.EquipmentCascade = "Nr inwentarzowy: " + forklift.InventoryNumber;
+                        break;
+
+                    case 2:
+                        Gantry gantry = _equipmentRepo.GetGantryByEquipmentId(e.EquipmentId);
+                        equ.EquipmentCascade = "Nr inwentarzowy: " + gantry.InventoryNumber;
+                        break;
+
+                    case 3:
+                        Hoist hoist = _equipmentRepo.GetHoistByEquipmentId(e.EquipmentId);
+                        equ.EquipmentCascade = "Nr inwentarzowy: " + hoist.InventoryNumber;
+                        break;
+                }
+                data.Add(equ);
             }
             return data;
         }
@@ -167,6 +187,56 @@ namespace GalvantMVC2.Application.Services
                 result.Add(taskVm);
             }
             return result;            
+        }
+
+        public List<StatusesVm> GetAllStatuses()
+        {
+            var statuses = _taskRepo.GetAllStatuses();
+                var statusesVmList = new List<StatusesVm>();
+                foreach (var status in statuses)
+                {
+                    var statusVm = new StatusesVm
+                    {
+                        StatusId = status.StatusId,
+                        StatusName = status.StatusName
+                    };
+                statusesVmList.Add(statusVm);
+                }
+                return statusesVmList;            
+        }       
+
+        public List<TasksSearchResultVm> Search(string location1, int type, int location2, int status, int tag, string priority, int pageNumber, int pageSize)
+        {
+            var result = new List<TasksSearchResultVm>();
+            Enum.TryParse<PriorityEnum>(priority, ignoreCase: true, out var priorityEnum);
+
+            var query = _taskRepo.GetTasksIncludingEquipment()
+                        .Where(t => (string.IsNullOrEmpty(location1) || t.Equipment.Location1 == location1) &&
+                                    (type == 0 || t.Equipment.TypeId == type) &&
+                                    (location2 == 0 || t.Equipment.Location2Id == location2) &&
+                                    (status == 0 || t.StatusId == status) &&
+                                    (tag == 0 || t.TagId == tag) &&
+                                    (t.Priority == priorityEnum || priorityEnum == default))         
+                        .OrderByDescending(t => t.CreatedAt)
+                        .Skip((pageNumber - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToList();
+
+            foreach (var task in query)
+            {
+                TasksSearchResultVm vm = new()
+                {
+                    TaskId = task.TaskId,
+                    Type = _equipmentRepo.GetTypeNameById(task.Equipment.TypeId),
+                    Location2 = _equipmentRepo.GetLocation2NameById(task.Equipment.Location2Id),
+                    Tag = _taskRepo.GetTagNameById(task.TagId),
+                    Status = _taskRepo.GetStatusNameById(task.StatusId),
+                    DueDate = task.DueDate,
+                    Title = task.Title
+                };
+                result.Add(vm);
+            }
+            return result;
         }
     }
 }

@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace GalvantMVC2.Application.ViewModels.Equipment
 {
-    public class EquipmentListVm
+    public class EquipmentDetailsSharedVm
     {
         public int EquipmentId { get; set; }
-        public string? Type { get; set; }
         public string? Location1 { get; set; }
-        public string? Location2 { get; set; }
+        public string? Location2Name { get; set; }
         public string? Location3 { get; set; }
-        public string? InventoryNumber { get; set; }
+        public string TypeName { get; set; }
+        public int TypeId { get; set; }
+        public string? Notes { get; set; }
     }
 }
+

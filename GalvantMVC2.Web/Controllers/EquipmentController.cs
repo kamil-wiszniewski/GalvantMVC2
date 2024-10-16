@@ -63,7 +63,6 @@ namespace GalvantMVC2.Web.Controllers
             return Redirect($"/add-files/{equipmentId}");
         }
     
-
         [Route("add-equipment/AdditionalFields")]
         public IActionResult AdditionalFields(int selectedTypeId)
         {
@@ -126,6 +125,22 @@ namespace GalvantMVC2.Web.Controllers
             return View(editEquipmentVm);
         }
 
+        [Route("equipment-details/{equipmentId}")]
+        [HttpGet]
+        public IActionResult EquipmentDetails(int equipmentId)
+        {
+            var equipment = _equipmentService.GetEquipmentSharedFieldsForDetails(equipmentId);
+            var additionalFields = _equipmentService.GetEquipmenmtAdditionalFieldsForEdit(equipmentId);
+
+            var equipmentDetailsVm = new EquipmentDetailsVm
+            {
+                EquipmentDetailsSharedVm = equipment,
+                AdditionalFieldsVm = additionalFields
+            };            
+
+            return View(equipmentDetailsVm);
+        }
+
         [Route("add-files/{equipmentid}")]
         [HttpGet]
         public IActionResult AddFiles(int equipmentId)
@@ -173,7 +188,6 @@ namespace GalvantMVC2.Web.Controllers
 
             return Json(new { success = true, categoryId, message = "Plik został pomyślnie usunięty." });
         }
-
 
     }
 }

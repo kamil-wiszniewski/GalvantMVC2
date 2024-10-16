@@ -1,4 +1,5 @@
-﻿@{
+﻿@using GalvantMVC2.Domain.Enums;
+@{
     ViewBag.Title = "Add Task";
 }
 
@@ -17,8 +18,7 @@
                     <select name="location1" class="form-input" id="firstDropdown">
                         <option value="Wybierz oddział">Wybierz oddział</option>
                         <option value="Czarna Białostocka">Czarna Białostocka</option>
-                        <option value="Wyszków">Wyszków</option>
-                   
+                        <option value="Wyszków">Wyszków</option>                   
                     </select>
                 </div>
                 </div>
@@ -38,8 +38,7 @@
                     <label class="form-label pt" for="type">Rodzaj</label>
                 </div>
                 <div class="flex-1">
-                    <select name="type" class="form-input" id="thirdDropdown">
-                        
+                    <select name="type" class="form-input" id="thirdDropdown">                        
                     </select>
                 </div>
             </div>
@@ -49,12 +48,10 @@
                     <label class="form-label pt" for="Equipment">Urządzenia</label>
                 </div>
                 <div class="flex-1">
-                    <select name="Equipment" class="form-input" id="fourthDropdown">
-                        
+                    <select name="Equipment" class="form-input" id="fourthDropdown">                        
                     </select>
                 </div>
-            </div>
-            
+            </div>            
         </div>
 
         <div class="form-field flex">
@@ -74,10 +71,50 @@
 
         <div class="form-field flex">
             <div class="w-25">
+                <label class="form-label pt" for="Title">Tytuł zadania</label>
+            </div>
+            <div class="flex-1">
+                <input class="form-input" type="text" id="Title" name="Title" />
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
                 <label class="form-label pt" for="Description">Opis zadania</label>
             </div>
             <div class="flex-1">
-                <input class="form-input" type="text" id="Description" name="Description" />
+                <textarea class="form-input" id="Description" name="Description"></textarea>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="StatusId">Status</label>
+            </div>
+            <div class="flex-1">
+                <select name="StatusId" id="StatusId" class="form-input">
+                    <option value="">Wybierz status</option>
+                    @foreach (var status in ViewBag.Statuses)
+                    {
+                        <option value="@status.StatusId">@status.StatusName</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label">Priorytet</label>
+            </div>
+            <div class="flex-1">
+                @{
+                    string[] priorities = (string[])Enum.GetNames(typeof(PriorityEnum));
+                }
+                @foreach (string priority in priorities)
+                {
+                    <input type="radio" name="Priority" id="Priority" value="@priority" />
+                    <label for="@priority">@priority</label>
+                }                
             </div>
         </div>
 
@@ -88,7 +125,27 @@
             <div class="flex-1">
                 <input class="form-input" type="date" id="DueDate" name="DueDate" />
             </div>
-        </div>        
+        </div>
+        
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Notes">Notatki</label>
+            </div>
+            <div class="flex-1">
+                <textarea class="form-input" id="Notes" name="Notes"></textarea>
+            </div>
+        </div>
+
+        <div class="form-field flex">
+            <div class="w-25">
+                <label class="form-label pt" for="Cost">Koszt</label>
+            </div>
+            <div class="flex-1">
+                <input class="form-input" type="number" id="Cost" name="Cost" />
+            </div>
+        </div>
+
+        <input type="hidden" id="EquipmentId" name="EquipmentId" />
 
         <div class="form-field flex">
             <div class="w-25">
@@ -97,36 +154,28 @@
                 <button class="button button-green-back">Dodaj</button>
             </div>
         </div>
-
-    </div>
-
-    
+    </div>    
 </form>
 
 @section scripts {
     <script>
         $('#firstDropdown').change(function () {
-            var firstDropdownVal = $(this).val();            
-
-            // Wywołaj akcję kontrolera, aby pobrać opcje dla drugiej listy
+            var firstDropdownVal = $(this).val();    
+                        
             $.get('/add-task/GetSecondDropdownOptions', { firstDropdownVal: firstDropdownVal }, function (data) {
-                // Wyczyść drugą listę
-                //$('#secondDropdown').empty();
-
+                
                 $('#secondDropdown').empty().append($('<option>', {
                     value: '',
                     text: 'Wybierz lokalizację'
                 }));
-
-                // Dodaj nowe opcje do drugiej listy
+                
                 $.each(data, function (index, item) {
                     $('#secondDropdown').append($('<option>', {
                         value: item.location2Id, 
                         text: item.location2Name 
                     }));
                 });
-
-                // Wyczyść trzecią listę po zmianie pierwszej listy
+                
                 $('#thirdDropdown').empty();
                 $('#fourthDropdown').empty();
             });
@@ -135,18 +184,14 @@
         $('#secondDropdown').change(function () {
             var firstDropdownVal = $('#firstDropdown').val();
             var secondDropdownVal = $(this).val();            
-
-            // Wywołaj akcję kontrolera, aby pobrać opcje dla drugiej listy
+                        
             $.get('/add-task/GetThirdDropdownOptions', { firstDropdownVal: firstDropdownVal, secondDropdownVal: secondDropdownVal }, function (data) {
-                // Wyczyść trzecią listę
-                //$('#thirdDropdown').empty();
-
+                
                 $('#thirdDropdown').empty().append($('<option>', {
                     value: '',
                     text: 'Wybierz rodzaj'
                 }));
-
-                // Dodaj nowe opcje do trzeciej listy
+                
                 $.each(data, function (index, item) {
                     $('#thirdDropdown').append($('<option>', {
                         value: item.typeId,
@@ -162,18 +207,14 @@
             var firstDropdownVal = $('#firstDropdown').val();
             var secondDropdownVal = $('#secondDropdown').val();
             var thirdDropdownVal = $(this).val();
-
-            // Wywołaj akcję kontrolera, aby pobrać opcje dla czwartej listy
+            
             $.get('/add-task/GetFourthDropdownOptions', { firstDropdownVal: firstDropdownVal, secondDropdownVal: secondDropdownVal, thirdDropdownVal: thirdDropdownVal }, function (data) {
-                // Wyczyść czwartą listę
-                //$('#fourthDropdown').empty();
-
+                
                 $('#fourthDropdown').empty().append($('<option>', {
                     value: '',
                     text: 'Wybierz urządzenie'
                 }));
-
-                // Dodaj nowe opcje do czwartej listy
+                
                 $.each(data, function (index, item) {
                     $('#fourthDropdown').append($('<option>', {
                         value: item.equipmentId,
@@ -183,9 +224,10 @@
             });
         });
 
-       
+        $('#fourthDropdown').change(function () {
+            var equipmentId = $(this).val();
+            $('#EquipmentId').val(equipmentId);
+        });      
         
     </script>
-   
-
 }

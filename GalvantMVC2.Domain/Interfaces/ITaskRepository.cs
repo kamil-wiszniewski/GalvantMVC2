@@ -15,8 +15,14 @@ namespace GalvantMVC2.Domain.Interfaces
 
         IQueryable<Model.Task> GetAllTasks();
 
+        IQueryable<Status> GetAllStatuses();
+
         string GetTagNameById(int? tagId);
 
         int GetTagIdByTagName(string tagName);
+
+        string GetStatusNameById(int? statusId);
+
+        IQueryable<Model.Task> GetTasksIncludingEquipment();        
     }
 }

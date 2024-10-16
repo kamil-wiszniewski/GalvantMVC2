@@ -13,6 +13,7 @@ namespace GalvantMVC2.Application.Interfaces
     public interface IFileService
     {
         List<CategoriesVm> GetAllCategories();
+
         void Upload(List<IFormFile> files, int categoryId, int equipmentId);
 
         List<FileVm> GetFilesByCategory(int categoryId, int equipmentId);

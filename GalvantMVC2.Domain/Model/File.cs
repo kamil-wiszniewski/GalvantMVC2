@@ -18,6 +18,5 @@ namespace GalvantMVC2.Domain.Model
         
         public virtual Category Category { get; set; }
         public virtual Equipment Equipment { get; set; }
-
     }
 }

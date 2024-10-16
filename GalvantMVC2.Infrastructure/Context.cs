@@ -31,7 +31,6 @@ namespace GalvantMVC2.Infrastructure
         public DbSet<Status> Statuses { get; set; }
         public DbSet<TaskEmployee> TaskEmployee { get; set; }
 
-
         public Context(DbContextOptions options) : base(options)
         {
         }
