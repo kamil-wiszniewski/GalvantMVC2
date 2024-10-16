@@ -5,6 +5,6 @@ Machine inventory and task management application for a zinc plant
 - Developed a file upload module that allowed adding files in various categories (e.g., maintenance reports, manuals) to devices, improving documentation management.
 - Integrated task management features, enabling efficient assignment and tracking of tasks related to specific devices within the system.
 
-Technologies used: C#, ASP.NET Core, Entity Framework, SQL, Java Script, html, cs
+Technologies used: C#, ASP.NET Core, Entity Framework, SQL, Java Script, html, css
 
 ![Screen1](images/1.png)
